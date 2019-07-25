@@ -27,7 +27,11 @@
     "dependencies": {
         "admin-lte": "^3.0.0-alpha.2",
         "canvas": "^2.5.0",
+        "fs": "0.0.1-security",
+        "laravel-echo": "^1.5.4",
+        "laravel-vue-pagination": "^2.3.0",
         "moment": "^2.24.0",
+        "pusher-js": "^4.4.0",
         "sweetalert2": "^8.13.3",
         "vform": "^1.0.1",
         "vue-progressbar": "^0.7.5",

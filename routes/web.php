@@ -11,10 +11,25 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/chat', 'ChatController@index')->name('chat');
+// Route::get('/home/test', function () {
+
+// $products = DB::select('select type,count(type) as count from products group by type');
+// return $products;
+// });
+// Route::get('/home/test', 'ProductController@category');;
+
+// Route::get('/chat', 'ChatController@index')->name('chat');
+
+// Route::get('/home', 'HomeController');
+
+// Send a message by Javascript.
+Route::get('/test', 'API\ProductController@export');

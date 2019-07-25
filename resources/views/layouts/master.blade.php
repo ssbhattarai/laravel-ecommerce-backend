@@ -24,25 +24,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li>
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
       <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+        <input class="form-control form-control-navbar" @keyup="searchit" v-model="search" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" v-on:click="searchit">
             <i class="fas fa-search"></i>
           </button>
         </div>
       </div>
-    </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
@@ -88,11 +80,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <router-link to="/" class="brand-link">
       <img src="/img/harvest.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3 green"
            style="opacity: .8">
       <span class="brand-text font-weight-light green">Dudhuli Municipality</span>
-    </a>
+    </router-link>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -133,7 +125,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </li>
           <li class="nav-item">
             <router-link to="/products" class="nav-link">
-              <i class="nav-icon fa fa-product-hunt"></i>
+              <i class="nav-icon fab fa-product-hunt green"></i>
               <p>
                 Products
                 <span class="right badge badge-danger"></span>
@@ -154,6 +146,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fa fa-truck"></i>
               <p>
                 Delivery
+                <span class="right badge badge-danger"></span>
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
+            <router-link to="/Chat" class="nav-link">
+              <i class="nav-icon fa fa-sms"></i>
+              <p>
+                Chat
                 <span class="right badge badge-danger"></span>
               </p>
             </router-link>
@@ -179,8 +180,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                         @csrf
                                         
                        </form>
-                  </p>
+                       <router-link to="/developer" class="nav-link">
+              <i class="nav-icon fa fa-code green"></i>
+              <p>
+                Developer
+                <span class="right badge badge-danger"></span>
+              </p>
+            </router-link> 
+             <router-link to="/profile" class="nav-link">
+              <i class="nav-icon fa fa-user green"></i>
+              <p>
+                Profile
+                <span class="right badge badge-danger"></span>
+              </p>
+            </router-link> 
+          </p>
               </li>
+          
             </ul>
           </li>
           

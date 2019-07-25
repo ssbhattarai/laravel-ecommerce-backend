@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" id="app">
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">Available</h3>
@@ -10,31 +10,27 @@
               Add New
               <i class="fas fa-plus"></i>
             </button>
-
-            <!-- <div class="input-group-append">
-              <button type="submit" class="btn btn-default"></button>
-            </div>-->
           </div>
         </div>
       </div>
-      <!-- /.card-header -->
       <div class="card-body table-responsive p-0" style="height: 300px;">
         <table class="table table-head-fixed">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Product Name</th>
-              <th>Type</th>
-              <th>Weight(N/KG)</th>
-              <th>Created At</th>
-              <th>Description</th>
+              <th @click="sort('id')">ID</th>
+              <th @click="sort('product_name')">Product Name</th>
+              <th @click="sort('type')">Type</th>
+              <th @click="sort('weight')">Weight(N/KG)</th>
+              <th @click="sort('created_at')">Created At</th>
+              <th @click="sort('description')">Description</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="product in products" :key="product.id">
               <td>{{product.id}}</td>
+
               <td>{{product.product_name | upText}}</td>
-              <td>{{product.type| upText}}</td>
+              <td>{{product.type}}</td>
               <td>{{product.weight}}</td>
               <td>{{product.created_at | myDate}}</td>
               <td>{{product.description}}</td>
@@ -51,11 +47,10 @@
             </tr>
           </tbody>
         </table>
+        debug: sort={{currentSort}}, dir={{currentSortDir}}
       </div>
-      <!-- /.card-body -->
     </div>
     <router-view></router-view>
-    <!-- Modal -->
     <div
       class="modal fade"
       id="addNew"
@@ -67,12 +62,13 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addNewLabel">Add New Product</h5>
+            <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New Product</h5>
+            <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update Product</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form @submit.prevent="createProduct">
+          <form @submit.prevent="editMode ? updateProduct() : createProduct()">
             <div class="modal-body">
               <div class="form-group">
                 <input
@@ -96,6 +92,7 @@
                 />
                 <has-error :form="form" field="type"></has-error>
               </div>
+
               <div class="form-group">
                 <input
                   v-model="form.weight"
@@ -121,7 +118,8 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-success">Create Product</button>
+              <button v-show="editMode" type="submit" class="btn btn-success">Update</button>
+              <button v-show="!editMode" type="submit" class="btn btn-primary">Create Product</button>
             </div>
           </form>
         </div>
@@ -134,7 +132,14 @@
 export default {
   data() {
     return {
+      //sorting
+      currentSort: "product_name",
+      currentSortDir: "asc",
+
+      productCount: null,
+      editMode: false,
       products: {},
+      test: "hhhh",
       form: new Form({
         id: "",
         product_name: "",
@@ -145,12 +150,38 @@ export default {
     };
   },
   methods: {
+    updateProduct(id) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      this.$Progress.start();
+      this.form
+        .put("api/products/" + this.form.id)
+        .then(() => {
+          Toast.fire({
+            type: "success",
+            title: "product update successfully"
+          });
+          this.$Progress.finish();
+          Fire.$emit("afterCreated");
+          $("#addNew").modal("hide");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
     editModal(product) {
+      this.editMode = true;
       this.form.reset();
       $("#addNew").modal("show");
       this.form.fill(product);
     },
     newModal() {
+      this.editMode = false;
       this.form.reset();
       $("#addNew").modal("show");
     },
@@ -160,7 +191,7 @@ export default {
         text: "You won't be able to revert this!",
         type: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
+
         cancelButtonColor: "#d33",
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
@@ -177,14 +208,19 @@ export default {
                 type: "error",
                 title: "Oops...",
                 text: "Something went wrong!"
-                // footer: "<a href>Why do I have this issue?</a>"
               });
             });
         }
       });
     },
     loadProducts() {
-      axios.get("api/products").then(({ data }) => (this.products = data));
+      axios.get("api/products").then(({ data }) => {
+        this.products = data;
+        this.test = "aaaaa";
+      });
+    },
+    countProducts() {
+      axios.get("api/products").then(({ data }) => this.products.count);
     },
     createProduct() {
       this.$Progress.start();
@@ -200,12 +236,27 @@ export default {
             title: "Product created successfully"
           });
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$Progress.fail();
+        });
     }
   },
 
   created() {
-    // console.log("Component mounted.");
+    Fire.$on("searching", () => {
+      let query = this.$parent.search;
+      axios
+        .get("api/findProduct?q=" + query)
+        .then(data => {
+          // this.test = "sdfsdfsdfsdf";
+          this.products = data.data.data;
+        })
+        .catch(() => {
+          console.log("Failed to search");
+          this.loadProducts();
+        });
+    });
+    // help to load the products after any changes like delete,edit or search
     this.loadProducts();
     Fire.$on("afterCreated", () => {
       this.loadProducts();
@@ -214,3 +265,5 @@ export default {
   }
 };
 </script>
+
+  

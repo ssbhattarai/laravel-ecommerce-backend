@@ -1,5 +1,19 @@
+/*jshint esversion: 6 */
+
 window._ = require('lodash');
 
+import Echo from 'laravel-echo';
+
+window.Pusher = require('pusher-js');
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: false
+});
+
+window._ = require('lodash');
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -53,5 +67,15 @@ if (token) {
 //     broadcaster: 'pusher',
 //     key: process.env.MIX_PUSHER_APP_KEY,
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+//     encrypted: true
+// });
+
+
+// import echo from "laravel-echo"
+
+// window.Echo = new echo({
+//     broadcaster: 'pusher',
+//     key: 'ffb166f4976941e634327c5',
+//     cluster: 'ap2',
 //     encrypted: true
 // });

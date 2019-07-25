@@ -5,86 +5,79 @@
         <!-- small box -->
         <div class="small-box bg-info">
           <div class="inner">
-            <h3>150</h3>
+            <h3>{{products.length}}</h3>
 
-            <p>New Orders</p>
+            <p>Total Available Products</p>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
           </div>
-          <a href="#" class="small-box-footer">
+          <router-link to="/products" class="small-box-footer">
             More info
             <i class="fas fa-arrow-circle-right"></i>
-          </a>
+          </router-link>
         </div>
       </div>
       <!-- ./col -->
-      <div class="col-lg-3 col-6">
+      <div class="col-lg-3 col-6" v-for="producttype in productCount" :key="producttype.type">
         <!-- small box -->
         <div class="small-box bg-success">
           <div class="inner">
-            <h3>
-              53
-              <sup style="font-size: 20px">%</sup>
-            </h3>
+            <h3>{{producttype.count}}</h3>
 
-            <p>Bounce Rate</p>
+            <p>{{producttype.type | upText}}</p>
           </div>
           <div class="icon">
             <i class="ion ion-stats-bars"></i>
           </div>
-          <a href="#" class="small-box-footer">
+          <router-link to="/products" class="small-box-footer">
             More info
             <i class="fas fa-arrow-circle-right"></i>
-          </a>
+          </router-link>
         </div>
       </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-warning">
-          <div class="inner">
-            <h3>44</h3>
-
-            <p>User Registrations</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-person-add"></i>
-          </div>
-          <a href="#" class="small-box-footer">
-            More info
-            <i class="fas fa-arrow-circle-right"></i>
-          </a>
-        </div>
-      </div>
-      <!-- ./col -->
-      <div class="col-lg-3 col-6">
-        <!-- small box -->
-        <div class="small-box bg-danger">
-          <div class="inner">
-            <h3>65</h3>
-
-            <p>Unique Visitors</p>
-          </div>
-          <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-          </div>
-          <a href="#" class="small-box-footer">
-            More info
-            <i class="fas fa-arrow-circle-right"></i>
-          </a>
-        </div>
-      </div>
-      <!-- ./col -->
     </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+import { close } from "fs";
 export default {
-  mounted() {
-    console.log("Component mounted.");
+  data() {
+    return {
+      productCount: {},
+      editMode: false,
+      products: {},
+      form: new Form({
+        id: "",
+        product_name: "",
+        type: "",
+        description: "",
+        weight: ""
+      })
+    };
+  },
+  methods: {
+    countP() {
+      let uri = "api/countProduct";
+      axios
+        .get(uri)
+        .then(data => {
+          this.productCount = data.data;
+          console.log(this.productCount);
+        })
+        .catch(() => {
+          console.log("error");
+        });
+    },
+    loadProducts() {
+      axios.get("api/products").then(({ data }) => (this.products = data));
+    }
+  },
+  created() {
+    this.countP();
+    this.loadProducts();
   }
 };
 </script>

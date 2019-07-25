@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResources([
     'products' => 'API\ProductController'
 ]);
+Route::apiResources([
+    'messages' => 'MessagesController'
+]);
+
+Route::get('findProduct', 'API\ProductController@search');
+Route::get('countProduct', 'API\ProductController@category');
