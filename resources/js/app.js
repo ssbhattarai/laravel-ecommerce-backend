@@ -22,7 +22,10 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 Vue.component('pagination', require('laravel-vue-pagination'));
 
-
+// for the table to be sorted
+import SortedTablePlugin from "vue-sorted-table";
+Vue.use(SortedTablePlugin);
+// for the table to be sorted
 
 
 window.Swal = Swal;
@@ -49,18 +52,22 @@ const routes = [{
     },
     {
         path: "/orders",
+        name: "orders",
         component: require("./components/Orders.vue").default
     },
     {
         path: "/products",
+        name: "products",
         component: require("./components/Products.vue").default
     },
     {
         path: "/delivery",
+        name: "delivery",
         component: require("./components/Delivery.vue").default
     },
     {
         path: "/category",
+        name: 'category',
         component: require("./components/Categories.vue").default
     },
     {
@@ -68,14 +75,22 @@ const routes = [{
         component: require("./components/Developer.vue").default
     }, {
         path: "/profile",
+        name: 'profile',
         component: require("./components/Profile.vue").default
     }, {
         path: "/",
+        name: 'dash',
         component: require("./components/Dashboard.vue").default
     },
     {
         path: "/chat",
+        name: 'chart',
         component: require("./components/Chat.vue").default
+    },
+    {
+        path: "/products/create-products",
+        name: 'create',
+        component: require("./components/CreateProduct.vue").default
     },
 ];
 
@@ -98,6 +113,8 @@ Vue.component(
     "example-component",
     require("./components/ExampleComponent.vue").default
 );
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -153,3 +170,8 @@ Vue.component(
     "passport-personal-access-tokens",
     require("./components/passport/PersonalAccessTokens.vue").default
 );
+
+
+window.Vue = require('vue');
+Vue.use(require('vue-resource'));
+Vue.component('pagination', require('laravel-vue-pagination'));

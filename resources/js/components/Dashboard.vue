@@ -43,7 +43,9 @@
 
 <script>
 import { close } from "fs";
+import { Line } from "vue-chartjs";
 export default {
+  extends: Line,
   data() {
     return {
       productCount: {},

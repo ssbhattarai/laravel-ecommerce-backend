@@ -30,6 +30,7 @@ class ProductController extends Controller
         // $count->count();
         return Products::all();
         //original code stop
+
     }
 
     /**
@@ -40,19 +41,52 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // \Log::info($request->all());
         $this->validate($request, [
             'product_name' => "required|string|max:20",
-            'type' => 'required|string|max:10|min:5',
-            'weight' => 'required|integer'
+            'type' => 'required',
+            'weight' => 'required|integer',
+            // 'image' => 'required|image',
         ]);
 
-        return Products::create([
-            'id' => $request['id'],
-            'product_name' => $request['product_name'],
-            'type' => $request['type'],
-            'weight' => $request['weight'],
-            'description' => $request['description']
-        ]);
+
+        // return Products::create([
+        //     'id' => $request['id'],
+        //     'product_name' => $request['product_name'],
+        //     'type' => $request['type'],
+        //     'weight' => $request['weight'],
+        //     'description' => $request['description'],
+        //     'image' => $request['image']
+        // ]);
+        $exploded = explode(',', $request->image);
+        // $ff = explode('.', $request->imageName)[0];
+        // return $ff;
+        $decoded = base64_decode($exploded[1]);
+        // $size = getimagesize($decoded);
+        // if ($size > 0) {
+        //     die($size);
+        // }
+        if (str_contains($exploded[0], 'jpeg'))
+            $extension = 'jpg';
+        else
+            $extension = 'png';
+
+        $fileName = str_random() . '.' . $extension;
+        $path = public_path('/uploades/images') . '/' . $fileName;
+        file_put_contents($path, $decoded);
+
+
+
+
+
+
+        $p = Products::create(
+            $request->except('image') + [
+                'user_id' => \Auth::id(),
+                'image' => $fileName
+            ]
+        );
+        return $p;
     }
 
     /**
@@ -77,13 +111,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = Products::findOrfail($id);
+        $p = Products::findOrfail($id);
         $this->validate($request, [
             'product_name' => "required|string|max:20",
             'type' => 'sometimes|string|max:10|min:5',
-            'weight' => 'required|integer'
+            'weight' => 'required|integer',
         ]);
-        $user->update($request->all());
+        $currentPhoto = $p->image;
+        if ($request->image != $currentPhoto) {
+            $exploded = explode(',', $request->image);
+
+            $decoded = base64_decode($exploded[1]);
+            // $size = getimagesize($decoded);
+            // if ($size > 0) {
+            //     die($size);
+            // }
+            if (str_contains($exploded[0], 'jpeg'))
+                $extension = 'jpg';
+            else
+                $extension = 'png';
+
+            $fileName = str_random() . '.' . $extension;
+            $path = public_path('/uploades/images') . '/' . $fileName;
+            file_put_contents($path, $decoded);
+        }
+        $p->update($request->except('image') + [
+            'image' => $fileName
+        ]);
         return ["message" => "Updated sucessfully."];
     }
 
@@ -96,11 +150,8 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Products::findOrFail($id);
-
-
         //delete the user
         $product->delete();
-
         return ["message" => "User deleted sucessfully"];
     }
 
@@ -120,10 +171,15 @@ class ProductController extends Controller
     public function category()
     {
         $pcount = DB::table('products')
-            ->select(DB::raw("type,count(type) as count "))
+            ->select(DB::raw("(CASE 
+            WHEN (type = 1) THEN 'Fruits'
+            When (type = 2)  THEN 'Vegetables'
+            ELSE 'Animals' END) as type, count(type) as count"))
             ->groupBy('type')
             ->orderByRaw('type DESC')
             ->get();
+
+
         return $pcount;
     }
 }

@@ -12,24 +12,51 @@
 */
 
 
+// Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::get('admin-login', 'ADMIN\AdminLoginController@showLoginForm');
+
+Route::post('admin-login', ['as' => 'admin-login', 'uses' => 'ADMIN\AdminLoginController@login']);
+
+
 Route::get('/', function () {
     return view('welcome');
 });
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/chat', 'ChatController@index')->name('chat');
-// Route::get('/home/test', function () {
+Route::get('/home', 'HomeController@index');
 
-// $products = DB::select('select type,count(type) as count from products group by type');
-// return $products;
-// });
-// Route::get('/home/test', 'ProductController@category');;
+// Route::get('/home', 'HomeController@test')->name('landing');
 
-// Route::get('/chat', 'ChatController@index')->name('chat');
 
-// Route::get('/home', 'HomeController');
+Route::get('/admin', function () {
+    return view('layouts.master');
+});
 
-// Send a message by Javascript.
-Route::get('/test', 'API\ProductController@export');
+Route::get('/', function () {
+    return view('landing');
+});
+
+Route::get('products', function () {
+    return view('products.products');
+});
+
+Route::get('supliers', function () {
+    return view('suplier.suplier');
+});
+
+Route::get('product-cart', function () {
+    return view('products.addtocart');
+});
+
+
+Route::get('supplier-info', function () {
+    return view('suplier.profile');
+});
+
+
+// admin route 
+// Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*')->name('layouts.master'); // use {any} because the admin site must start with the admin/ 

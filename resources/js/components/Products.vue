@@ -1,28 +1,56 @@
+<style>
+.primary {
+  color: black;
+}
+
+.file-upload-form,
+.image-preview {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  padding: 20px;
+}
+img.preview {
+  height: 330;
+  width: 301px;
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+}
+
+input[type="file"] {
+  color: white;
+  background-color: darkcyan;
+}
+</style>
+
 <template>
-  <div class="container" id="app">
+  <div class="container">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Available</h3>
+        <h3 class="card-title">Available Products</h3>
 
         <div class="card-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
-            <button class="btn btn-success" @click="newModal">
-              Add New
-              <i class="fas fa-plus"></i>
-            </button>
+            <!-- Add New -->
+            <router-link :to="{ name: 'create' }">
+              <button class="btn btn-success">
+                Add new
+                <i class="fas fa-plus"></i>
+              </button>
+            </router-link>
           </div>
         </div>
       </div>
       <div class="card-body table-responsive p-0" style="height: 300px;">
-        <table class="table table-head-fixed">
+        <table class="table table-hover">
           <thead>
-            <tr>
-              <th @click="sort('id')">ID</th>
-              <th @click="sort('product_name')">Product Name</th>
-              <th @click="sort('type')">Type</th>
-              <th @click="sort('weight')">Weight(N/KG)</th>
-              <th @click="sort('created_at')">Created At</th>
-              <th @click="sort('description')">Description</th>
+            <tr class="primary">
+              <th>ID</th>
+              <th>Product Name</th>
+              <th>Type</th>
+              <th>Weight(N/KG)</th>
+              <th>Created At</th>
+              <th>Description</th>
+              <th>image</th>
             </tr>
           </thead>
           <tbody>
@@ -30,10 +58,11 @@
               <td>{{product.id}}</td>
 
               <td>{{product.product_name | upText}}</td>
-              <td>{{product.type}}</td>
+              <td>{{product.type| upText}}</td>
               <td>{{product.weight}}</td>
               <td>{{product.created_at | myDate}}</td>
               <td>{{product.description}}</td>
+              <td>{{product.image}}</td>
               <td>
                 <a href="#" @click="editModal(product)">
                   <i class="fa fa-edit green"></i>
@@ -47,7 +76,6 @@
             </tr>
           </tbody>
         </table>
-        debug: sort={{currentSort}}, dir={{currentSortDir}}
       </div>
     </div>
     <router-view></router-view>
@@ -114,6 +142,26 @@
                 />
                 <has-error :form="form" field="description"></has-error>
               </div>
+              <div class="form-group">
+                <input
+                  type="file"
+                  name="image"
+                  id="image"
+                  class="form-control"
+                  @change="imageChanged"
+                  required
+                  :class="{ 'is-invalid': form.errors.has('image') }"
+                  value="Choose Image"
+                  onchange="validate_fileupload(this.value);"
+                />
+                <has-error :form="form" field="image"></has-error>
+                <div class="image-preview" v-if="form.image.length > 0">
+                  <img class="preview" :src="form.image" />
+                </div>
+                <!-- <has-error :form="form" field="image"></has-error> -->
+                <!-- <br /> -->
+                <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->
+              </div>
             </div>
 
             <div class="modal-footer">
@@ -133,23 +181,58 @@ export default {
   data() {
     return {
       //sorting
-      currentSort: "product_name",
-      currentSortDir: "asc",
-
-      productCount: null,
+      // image: "",
       editMode: false,
       products: {},
-      test: "hhhh",
       form: new Form({
         id: "",
         product_name: "",
         type: "",
         description: "",
-        weight: ""
+        weight: "",
+        image: "",
+        imageName: ""
       })
     };
   },
   methods: {
+    validate_fileupload(fileName) {
+      var allowed_extensions = new Array("jpg", "png", "gif");
+      var file_extension = fileName
+        .split(".")
+        .pop()
+        .toLowerCase(); // split function will split the filename by dot(.), and pop function will pop the last element from the array which will give you the extension as well. If there will be no extension then it will return the filename.
+
+      for (var i = 0; i <= allowed_extensions.length; i++) {
+        if (allowed_extensions[i] == file_extension) {
+          return true; // valid file extension
+        }
+      }
+
+      return false;
+    },
+    imageChanged(e) {
+      // console.log("uploadling");
+      let file = e.target.files[0];
+      console.log(file);
+      let reader = new FileReader();
+      this.form.imageName = file["name"];
+
+      if (file["size"] < 2111775) {
+        reader.onloadend = () => {
+          console.log("RESULT", reader.result);
+          this.form.image = reader.result;
+        };
+        console.log(reader.readAsDataURL(file));
+      } else {
+        Swal.fire({
+          type: "error",
+          title: "Oops...",
+          text: "Image size must be less than 2 MB."
+        });
+      }
+    },
+
     updateProduct(id) {
       const Toast = Swal.mixin({
         toast: true,
