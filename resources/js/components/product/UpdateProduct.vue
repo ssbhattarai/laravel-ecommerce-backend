@@ -89,6 +89,12 @@
             <button type="button" class="btn btn-success" @click.prevent="update">Update</button>
           </router-link>
 
+
+<!-- <div class="card-footer mb-3">
+          <router-link :to="{ name: 'products' }">
+            <button type="button" class="btn btn-success" @click.prevent="update">Update</button>
+          </router-link> -->
+
           <router-link :to="{ name: 'products' }">
             <button type="button" class="btn btn-danger">Close</button>
           </router-link>

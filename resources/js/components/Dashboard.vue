@@ -8,6 +8,7 @@
             <h3>{{products.length}}</h3>
 
             <p>Total Available Products</p>
+            <smaller>available only</smaller>
           </div>
           <div class="icon">
             <i class="ion ion-bag"></i>
