@@ -20,13 +20,12 @@ import {
 window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
-Vue.component('pagination', require('laravel-vue-pagination'));
+Vue.component("pagination", require("laravel-vue-pagination"));
 
 // for the table to be sorted
 import SortedTablePlugin from "vue-sorted-table";
 Vue.use(SortedTablePlugin);
 // for the table to be sorted
-
 
 window.Swal = Swal;
 window.Fire = new Vue();
@@ -35,7 +34,7 @@ Vue.use(VueRouter);
 Vue.use(VueProgressBar, {
     color: "rgb(143, 255, 199)",
     failedColor: "red",
-    height: "3px"
+    height: "4px"
 });
 // for toast alert
 const Toast = Swal.mixin({
@@ -58,7 +57,7 @@ const routes = [{
     {
         path: "/products",
         name: "products",
-        component: require("./components/Products.vue").default
+        component: require("./components/product/Products.vue").default
     },
     {
         path: "/delivery",
@@ -67,31 +66,44 @@ const routes = [{
     },
     {
         path: "/category",
-        name: 'category',
+        name: "category",
         component: require("./components/Categories.vue").default
     },
     {
         path: "/developer",
         component: require("./components/Developer.vue").default
-    }, {
+    },
+    {
         path: "/profile",
-        name: 'profile',
+        name: "profile",
         component: require("./components/Profile.vue").default
-    }, {
+    },
+    {
         path: "/",
-        name: 'dash',
+        name: "dash",
         component: require("./components/Dashboard.vue").default
     },
     {
         path: "/chat",
-        name: 'chart',
+        name: "chart",
         component: require("./components/Chat.vue").default
     },
     {
-        path: "/products/create-products",
-        name: 'create',
-        component: require("./components/CreateProduct.vue").default
+        path: "/create-products",
+        name: "create",
+        component: require("./components/product/CreateProduct.vue").default
     },
+    // {
+    //     path: "/update-products/:id",
+    //     name: "update",
+    //     component: require("./components/product/UpdateProduct.vue").default
+    // }
+    {
+        path: "/update-product",
+        name: "update",
+        component: require("./components/product/UpdateProduct.vue").default
+    },
+
 ];
 
 const router = new VueRouter({
@@ -114,8 +126,6 @@ Vue.component(
     require("./components/ExampleComponent.vue").default
 );
 
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -125,7 +135,7 @@ const app = new Vue({
     el: "#app",
     router,
     data: {
-        search: ''
+        search: ""
     },
     methods: {
         // working but delay for 1 sec
@@ -135,16 +145,15 @@ const app = new Vue({
         // searchit() {
         //     Fire.$emit("searching");
         // },
-    },
+    }
 });
 
 Vue.filter("upText", function (text) {
     if (text) {
         return text.charAt(0).toUpperCase() + text.slice(1);
     } else {
-        return '';
+        return "";
     }
-
 });
 
 String.prototype.capitalize = function () {
@@ -171,7 +180,6 @@ Vue.component(
     require("./components/passport/PersonalAccessTokens.vue").default
 );
 
-
-window.Vue = require('vue');
-Vue.use(require('vue-resource'));
-Vue.component('pagination', require('laravel-vue-pagination'));
+window.Vue = require("vue");
+Vue.use(require("vue-resource"));
+Vue.component("pagination", require("laravel-vue-pagination"));

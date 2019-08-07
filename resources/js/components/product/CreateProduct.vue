@@ -88,9 +88,9 @@
         </div>
 
         <div class="card-footer mb-3">
-          <!-- <router-link :to="{ name: 'products' }"> -->
-          <button type="button" class="btn btn-success" @click="productCreate">Create</button>
-          <!-- </router-link> -->
+          <router-link :to="{ name: 'products' }">
+            <button type="button" class="btn btn-success" @click="productCreate">Create</button>
+          </router-link>
 
           <router-link :to="{ name: 'products' }">
             <button type="button" class="btn btn-danger">Close</button>
@@ -106,12 +106,7 @@
 export default {
   data() {
     return {
-      //sorting
-      // image: "",
-      editMode: false,
       products: {},
-      fields: {},
-      errors: {},
       form: new Form({
         id: "",
         product_name: "",
@@ -125,6 +120,7 @@ export default {
   },
   methods: {
     productCreate() {
+      this.$Progress.start();
       this.errors = {};
       axios
         .post("api/products", this.form)
@@ -136,13 +132,16 @@ export default {
             showConfirmButton: false,
             timer: 1000
           });
+          this.$Progress.finish();
         })
         .catch(error => {
+          this.$Progress.fail();
           if (error.response.status === 422) {
             this.errors = error.response.data.errors || {};
           }
         });
     },
+
     validate_fileupload(fileName) {
       var allowed_extensions = new Array("jpg", "png", "gif");
       var file_extension = fileName
@@ -179,46 +178,13 @@ export default {
         });
       }
     },
-
-    deleteProducts(id) {
-      Swal.fire({
-        title: "Are you sure?",
-        text: "You won't be able to revert this!",
-        type: "warning",
-        showCancelButton: true,
-
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
-        //send the request to the server
-        if (result.value) {
-          this.form
-            .delete("api/products/" + id)
-            .then(result => {
-              Swal.fire("Deleted!", "Your file has been deleted.", "success");
-              Fire.$emit("afterCreated");
-            })
-            .catch(() => {
-              Swal.fire({
-                type: "error",
-                title: "Oops...",
-                text: "Something went wrong!"
-              });
-            });
-        }
-      });
-    },
     loadProducts() {
       axios.get("api/products").then(({ data }) => {
         this.products = data;
         this.test = "aaaaa";
       });
-    },
-    countProducts() {
-      axios.get("api/products").then(({ data }) => this.products.count);
     }
   },
-
   created() {
     // help to load the products after any changes like delete,edit or search
     this.loadProducts();

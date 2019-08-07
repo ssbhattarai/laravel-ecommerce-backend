@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
+// use PhpOffice\PhpSpreadsheet\Shared\File;
+// use Illuminate\Http\File;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Products;
@@ -46,26 +49,10 @@ class ProductController extends Controller
             'product_name' => "required|string|max:20",
             'type' => 'required',
             'weight' => 'required|integer',
-            // 'image' => 'required|image',
         ]);
-
-
-        // return Products::create([
-        //     'id' => $request['id'],
-        //     'product_name' => $request['product_name'],
-        //     'type' => $request['type'],
-        //     'weight' => $request['weight'],
-        //     'description' => $request['description'],
-        //     'image' => $request['image']
-        // ]);
         $exploded = explode(',', $request->image);
-        // $ff = explode('.', $request->imageName)[0];
-        // return $ff;
         $decoded = base64_decode($exploded[1]);
-        // $size = getimagesize($decoded);
-        // if ($size > 0) {
-        //     die($size);
-        // }
+
         if (str_contains($exploded[0], 'jpeg'))
             $extension = 'jpg';
         else
@@ -74,10 +61,6 @@ class ProductController extends Controller
         $fileName = str_random() . '.' . $extension;
         $path = public_path('/uploades/images') . '/' . $fileName;
         file_put_contents($path, $decoded);
-
-
-
-
 
 
         $p = Products::create(
@@ -120,12 +103,8 @@ class ProductController extends Controller
         $currentPhoto = $p->image;
         if ($request->image != $currentPhoto) {
             $exploded = explode(',', $request->image);
-
             $decoded = base64_decode($exploded[1]);
-            // $size = getimagesize($decoded);
-            // if ($size > 0) {
-            //     die($size);
-            // }
+
             if (str_contains($exploded[0], 'jpeg'))
                 $extension = 'jpg';
             else
@@ -135,9 +114,7 @@ class ProductController extends Controller
             $path = public_path('/uploades/images') . '/' . $fileName;
             file_put_contents($path, $decoded);
         }
-        $p->update($request->except('image') + [
-            'image' => $fileName
-        ]);
+        $p->update($request->all());
         return ["message" => "Updated sucessfully."];
     }
 
@@ -149,10 +126,14 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
+
         $product = Products::findOrFail($id);
-        //delete the user
+        $file_path = public_path() . '/uploades/images/' . $product->image;
+        if (File::exists($file_path)) {
+            unlink($file_path);
+        }
         $product->delete();
-        return ["message" => "User deleted sucessfully"];
+        return ['message' => 'Product Delected sucessfully!'];
     }
 
     public function search()

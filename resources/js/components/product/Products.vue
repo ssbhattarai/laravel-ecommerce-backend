@@ -64,9 +64,13 @@ input[type="file"] {
               <td>{{product.description}}</td>
               <td>{{product.image}}</td>
               <td>
-                <a href="#" @click="editModal(product)">
+                <!-- <router-link
+                  v-bind:to="{name: 'update',params: {id: product.id}}"
+                  @click="editModal"
+                >-->
+                <router-link v-bind:to="{name: 'update'}" @click="editModal">
                   <i class="fa fa-edit green"></i>
-                </a>
+                </router-link>
               </td>
               <td>
                 <a href="#" @click="deleteProducts(product.id)">
@@ -182,6 +186,7 @@ export default {
     return {
       //sorting
       // image: "",
+      pId: this.$route.params.id,
       editMode: false,
       products: {},
       form: new Form({
@@ -196,6 +201,31 @@ export default {
     };
   },
   methods: {
+    updateProduct(id) {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 3000
+      });
+
+      this.$Progress.start();
+      this.form
+        .put("api/products/" + this.form.id)
+        .then(res => {
+          this.products = resp.data;
+          Toast.fire({
+            type: "success",
+            title: "product update successfully"
+          });
+          this.$Progress.finish();
+          Fire.$emit("afterCreated");
+          $("#addNew").modal("hide");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
     validate_fileupload(fileName) {
       var allowed_extensions = new Array("jpg", "png", "gif");
       var file_extension = fileName
@@ -258,9 +288,9 @@ export default {
         });
     },
     editModal(product) {
-      this.editMode = true;
-      this.form.reset();
-      $("#addNew").modal("show");
+      // this.editMode = true;
+      // this.form.reset();
+      // $("#addNew").modal("show");
       this.form.fill(product);
     },
     newModal() {
