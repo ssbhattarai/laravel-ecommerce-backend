@@ -10,7 +10,7 @@
       <div class="card-header bg-dark">
         <h3 class="card-title">Update</h3>
       </div>
-      <form v-on:submit.prevent="updateProduct">
+      <form @submit.prevent="onSubmit($event)">
         <div class="card-body">
           <div class="form-group">
             <label for="product_name">Name of Produdct</label>
@@ -86,14 +86,13 @@
 
         <div class="card-footer mb-3">
           <router-link :to="{ name: 'products' }">
-            <button type="button" class="btn btn-success" @click.prevent="update">Update</button>
+            <button type="submit" class="btn btn-success" @click.prevent="update">Update</button>
           </router-link>
 
-
-<!-- <div class="card-footer mb-3">
+          <!-- <div class="card-footer mb-3">
           <router-link :to="{ name: 'products' }">
             <button type="button" class="btn btn-success" @click.prevent="update">Update</button>
-          </router-link> -->
+          </router-link>-->
 
           <router-link :to="{ name: 'products' }">
             <button type="button" class="btn btn-danger">Close</button>
@@ -122,96 +121,6 @@ export default {
     };
   },
   methods: {
-    update() {
-      axios
-        .put("/api/products/" + this.form.id)
-        .then(response => {
-          this.successful = true;
-          this.error = false;
-          this.errors = [];
-        })
-        .catch(error => {
-          if (!_.isEmpty(error.response)) {
-            if ((error.response.status = 422)) {
-              this.errors = error.response.data.errors;
-              this.successful = false;
-              this.error = true;
-            }
-          }
-        });
-    },
-    updatePost() {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000
-      });
-
-      this.$Progress.start();
-      this.form
-        .put("api/products/" + this.form.id)
-        .then(res => {
-          this.products = resp.data;
-          Toast.fire({
-            type: "success",
-            title: "product update successfully"
-          });
-          this.$Progress.finish();
-          Fire.$emit("afterCreated");
-          // $("#addNew").modal("hide");
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        });
-    },
-    productCreate() {
-      this.$Progress.start();
-      this.errors = {};
-      axios
-        .post("api/products", this.form)
-        .then(response => {
-          Swal.fire({
-            position: "center",
-            type: "success",
-            title: "Product created sucessfully",
-            showConfirmButton: false,
-            timer: 1000
-          });
-          this.$Progress.finish();
-        })
-        .catch(error => {
-          this.$Progress.fail();
-          if (error.response.status === 422) {
-            this.errors = error.response.data.errors || {};
-          }
-        });
-    },
-    updateProduct(id) {
-      const Toast = Swal.mixin({
-        toast: true,
-        position: "top",
-        showConfirmButton: false,
-        timer: 3000
-      });
-
-      this.$Progress.start();
-      this.form
-        .put("api/products/" + this.form.id)
-        .then(res => {
-          this.products = resp.data;
-          Toast.fire({
-            type: "success",
-            title: "product update successfully"
-          });
-          this.$Progress.finish();
-          Fire.$emit("afterCreated");
-          $("#addNew").modal("hide");
-        })
-        .catch(() => {
-          this.$Progress.fail();
-        });
-    },
     validate_fileupload(fileName) {
       var allowed_extensions = new Array("jpg", "png", "gif");
       var file_extension = fileName

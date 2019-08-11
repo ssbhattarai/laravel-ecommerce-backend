@@ -53,6 +53,23 @@
             />
           </div>
           <div class="form-group">
+            <label class="mr-sm-2" for="type">Weight Type</label>
+            <select
+              class="custom-select mr-sm-2 form-control"
+              id="weight_type"
+              v-model="form.weight_type"
+              name="weght_type"
+              required
+            >
+              <option default>Select</option>
+              <option value="kg">Kg</option>
+              <option value="pathi">Pathi</option>
+              <option value="mana">Mana</option>
+              <option value="dharni">Dharni</option>
+              <option value="Ota">Ota</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label class="mr-sm-2" for="description">Description</label>
             <textarea
               v-model="form.description"
@@ -114,7 +131,8 @@ export default {
         description: "",
         weight: "",
         image: "",
-        imageName: ""
+        imageName: "",
+        weight_type: ""
       })
     };
   },

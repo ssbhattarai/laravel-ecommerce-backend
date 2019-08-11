@@ -23,3 +23,4 @@ Route::apiResources([
 
 Route::get('findProduct', 'API\ProductController@search');
 Route::get('countProduct', 'API\ProductController@category');
+Route::get('export', 'API\ProductController@export');

@@ -93,16 +93,12 @@ const routes = [{
         name: "create",
         component: require("./components/product/CreateProduct.vue").default
     },
-    // {
-    //     path: "/update-products/:id",
-    //     name: "update",
-    //     component: require("./components/product/UpdateProduct.vue").default
-    // }
     {
-        path: "/update-product",
+        path: "/update-products/:id",
         name: "update",
         component: require("./components/product/UpdateProduct.vue").default
-    },
+    }
+
 
 ];
 

@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Products;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+// use Maatwebsite\Excel\Facades;
+use App\Exports\ProductsExport;
 
 class ProductController extends Controller
 {
@@ -162,5 +165,17 @@ class ProductController extends Controller
 
 
         return $pcount;
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProductsExport, 'products.xlsx');
+        // return ["message" => "i ma from export"];
+        // $items = Products::all();
+        // Excel::create('items', function ($excel) use ($items) {
+        //     $excel->sheet('ExportFile', function ($sheet) use ($items) {
+        //         $sheet->fromArray($items);
+        //     });
+        // })->export('xlsx');
     }
 }

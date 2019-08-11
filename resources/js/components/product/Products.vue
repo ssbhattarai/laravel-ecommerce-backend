@@ -26,7 +26,15 @@ input[type="file"] {
   <div class="container">
     <div class="card">
       <div class="card-header">
-        <h3 class="card-title">Available Products</h3>
+        <h3 class="card-title">
+          Available Products
+          <a href="#" @click="exportExcel">
+            <button class="btn btn-outline-info" style="margin-left: 515px;">
+              Export excel
+              <i class="fas fa-download"></i>
+            </button>
+          </a>
+        </h3>
 
         <div class="card-tools">
           <div class="input-group input-group-sm" style="width: 150px;">
@@ -68,7 +76,7 @@ input[type="file"] {
                   v-bind:to="{name: 'update',params: {id: product.id}}"
                   @click="editModal"
                 >-->
-                <router-link v-bind:to="{name: 'update'}" @click="editModal">
+                <router-link v-bind:to="{name: 'update', params: {id: product.id }}">
                   <i class="fa fa-edit green"></i>
                 </router-link>
               </td>
@@ -196,11 +204,28 @@ export default {
         description: "",
         weight: "",
         image: "",
-        imageName: ""
+        imageName: "",
+        weight_type: ""
       })
     };
   },
   methods: {
+    exportExcel() {
+      this.$Progress.start();
+      axios({
+        url: "api/export",
+        method: "GET",
+        responseType: "blob" // important
+      }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "products.xlsx"); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+      }).catch();
+       this.$Progress.finish()
+    },
     updateProduct(id) {
       const Toast = Swal.mixin({
         toast: true,

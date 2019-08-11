@@ -29,6 +29,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/test', 'API\ProductController@export');
+Route::get('/test1', 'API\ProductController@export1');
+
+
 // Route::get('/home', 'HomeController@test')->name('landing');
 
 

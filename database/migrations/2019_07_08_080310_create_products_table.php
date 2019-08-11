@@ -21,6 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('type');
             $table->longText('description');
             $table->string('weight');
+            $table->string('weight_type');
             $table->string('image')->nullable();
             $table->timestamps();
         });
