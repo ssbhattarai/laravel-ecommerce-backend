@@ -38,7 +38,6 @@
               <option value="2">Veg</option>
               <option value="3">Animals</option>
             </select>
-            <has-error :form="form" field="type"></has-error>
           </div>
           <div class="form-group">
             <label for="weight">Weight (kg/N)</label>
@@ -57,7 +56,7 @@
               class="custom-select mr-sm-2 form-control"
               id="weight_type"
               v-model="form.weight_type"
-              name="weght_type"
+              name="weight_type"
               required
             >
               <option value>Select</option>
@@ -77,7 +76,6 @@
               placeholder="Description"
               required
             />
-            <has-error :form="form" field="description"></has-error>
           </div>
           <div class="form-group">
             <label for="image">Select Image</label>
@@ -91,11 +89,9 @@
               value="Choose Image"
               onchange="validate_fileupload(this.value);"
             />
-            <has-error :form="form" field="image"></has-error>
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
             </div>
-            <!-- <has-error :form="form" field="image"></has-error> -->
             <!-- <br /> -->
             <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->
           </div>
@@ -103,7 +99,7 @@
 
         <div class="card-footer mb-3">
           <router-link :to="{ name: 'products' }">
-            <button type="submit" class="btn btn-success" @click="updateP">Update</button>
+            <button type="submit" class="btn btn-success" @click="saveForm()">Update</button>
           </router-link>
 
           <!-- <div class="card-footer mb-3">
@@ -125,6 +121,7 @@
 export default {
   data() {
     return {
+      productId: null,
       products: {},
       form: new Form({
         id: "",
@@ -145,6 +142,27 @@ export default {
   // },
 
   methods: {
+    saveForm() {
+      // event.preventDefault();
+
+      var app = this;
+
+      var newForm = app.form;
+
+      axios
+        .patch("api/products/" + app.productId, newForm)
+
+        .then(function(resp) {
+          // alert("this is too much");
+          // app.$router.replace("/products/:id");
+          console.log("data update susefully");
+        })
+
+        .catch(function(resp) {
+          console.log(resp);
+          alert("Could not create your company");
+        });
+    },
     updateP(id) {
       console.log("fuckkkkk");
       let uri = "api/products/{id}/" + this.form.id;
@@ -199,13 +217,29 @@ export default {
       });
     }
   },
-  created() {
+  mounted() {
     // help to load the products after any changes like delete,edit or search
-    this.loadProducts();
-    Fire.$on("afterCreated", () => {
-      this.loadProducts();
-    });
+    // this.loadProducts();
+    // Fire.$on("afterCreated", () => {
+    //   this.loadProducts();
+    // });
     // setInterval(() => this.loadProducts(), 3000);
+    // }
+    let app = this;
+    let id = app.$route.params.id;
+    app.productId = id;
+    console.log(app.productId);
+    axios
+      .get("api/getProduct/" + id)
+
+      .then(function(resp) {
+        app.form = resp.data;
+        console.log(app.form);
+      })
+
+      .catch(function() {
+        alert("Could not load your data");
+      });
   }
 };
 </script>

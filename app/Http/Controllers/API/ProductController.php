@@ -110,15 +110,13 @@ class ProductController extends Controller
 
         $this->validate($request, [
             'product_name' => "required|string|max:20",
+            'product_name' => "required|string|max:20",
+            'type' => 'required',
+            'weight' => 'required|integer',
         ]);
-        // $p = Products::findOrFail($id);
-        // $p->update();
-        // return $p;
-        // // return response()->json('successfully updated');
-
-
-        Products::whereId($id)->update($request->all());
-        return ["message" => "Data updated"];
+        $products = Products::findOrFail($id);
+        $products->update($request->all());
+        return $products;
     }
 
     public function edit($id)
@@ -182,5 +180,10 @@ class ProductController extends Controller
         //         $sheet->fromArray($items);
         //     });
         // })->export('xlsx');
+    }
+    public function getProducts($id)
+    {
+        $p = Products::find($id);
+        return response()->json($p);
     }
 }
