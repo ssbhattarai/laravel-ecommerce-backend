@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 // use Maatwebsite\Excel\Facades;
 use App\Exports\ProductsExport;
+use App\Http\Resources\ProductsCollection;
+
+use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
@@ -35,6 +38,7 @@ class ProductController extends Controller
         // $count = Products::get();
         // $count->count();
         return Products::all();
+        // return new ProductsCollection(Products::all());
         //original code stop
 
     }
@@ -97,30 +101,31 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $p = Products::findOrfail($id);
+        // $post = Products::find($id);
+        // $p->update($request->all());
+
+        // return $p;
+        // return ["message" => "I am from the update form"];
+
+
         $this->validate($request, [
             'product_name' => "required|string|max:20",
-            'type' => 'sometimes|string|max:10|min:5',
-            'weight' => 'required|integer',
         ]);
-        $currentPhoto = $p->image;
-        if ($request->image != $currentPhoto) {
-            $exploded = explode(',', $request->image);
-            $decoded = base64_decode($exploded[1]);
+        // $p = Products::findOrFail($id);
+        // $p->update();
+        // return $p;
+        // // return response()->json('successfully updated');
 
-            if (str_contains($exploded[0], 'jpeg'))
-                $extension = 'jpg';
-            else
-                $extension = 'png';
 
-            $fileName = str_random() . '.' . $extension;
-            $path = public_path('/uploades/images') . '/' . $fileName;
-            file_put_contents($path, $decoded);
-        }
-        $p->update($request->all());
-        return ["message" => "Updated sucessfully."];
+        Products::whereId($id)->update($request->all());
+        return ["message" => "Data updated"];
     }
 
+    public function edit($id)
+    {
+        $p = Products::find($id);
+        return response()->json($p);
+    }
     /**
      * Remove the specified resource from storage.
      *

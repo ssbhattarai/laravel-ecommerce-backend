@@ -34,7 +34,7 @@
               name="type"
               required
             >
-              <option default>Select Type</option>
+              <option value>Select Type</option>
               <option value="1">Fruits</option>
               <option value="2">Veg</option>
               <option value="3">Animals</option>
@@ -61,7 +61,7 @@
               name="weght_type"
               required
             >
-              <option default>Select</option>
+              <option value>Select</option>
               <option value="kg">Kg</option>
               <option value="pathi">Pathi</option>
               <option value="mana">Mana</option>
@@ -98,6 +98,7 @@
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
             </div>
+
             <!-- <has-error :form="form" field="image"></has-error> -->
             <!-- <br /> -->
             <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->

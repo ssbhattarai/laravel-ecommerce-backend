@@ -94,7 +94,7 @@ const routes = [{
         component: require("./components/product/CreateProduct.vue").default
     },
     {
-        path: "/update-products/:id",
+        path: "/products/:id",
         name: "update",
         component: require("./components/product/UpdateProduct.vue").default
     }

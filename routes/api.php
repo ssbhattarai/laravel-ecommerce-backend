@@ -24,3 +24,10 @@ Route::apiResources([
 Route::get('findProduct', 'API\ProductController@search');
 Route::get('countProduct', 'API\ProductController@category');
 Route::get('export', 'API\ProductController@export');
+
+
+// Route::post('/post/create', 'PostController@store');
+// Route::get('/products/edit/{id}', 'API\ProductController@edit');
+// Route::post('/products/update/{id}', 'API\ProductController@update');
+// Route::delete('/products/delete/{id}', 'API\ProductController@delete');
+// Route::get('/posts', 'PostController@index');

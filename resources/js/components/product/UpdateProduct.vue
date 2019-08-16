@@ -10,7 +10,7 @@
       <div class="card-header bg-dark">
         <h3 class="card-title">Update</h3>
       </div>
-      <form @submit.prevent="onSubmit($event)">
+      <form>
         <div class="card-body">
           <div class="form-group">
             <label for="product_name">Name of Produdct</label>
@@ -52,6 +52,23 @@
             />
           </div>
           <div class="form-group">
+            <label class="mr-sm-2" for="type">Weight Type</label>
+            <select
+              class="custom-select mr-sm-2 form-control"
+              id="weight_type"
+              v-model="form.weight_type"
+              name="weght_type"
+              required
+            >
+              <option value>Select</option>
+              <option value="kg">Kg</option>
+              <option value="pathi">Pathi</option>
+              <option value="mana">Mana</option>
+              <option value="dharni">Dharni</option>
+              <option value="Ota">Ota</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label class="mr-sm-2" for="description">Description</label>
             <textarea
               v-model="form.description"
@@ -86,7 +103,7 @@
 
         <div class="card-footer mb-3">
           <router-link :to="{ name: 'products' }">
-            <button type="submit" class="btn btn-success" @click.prevent="update">Update</button>
+            <button type="submit" class="btn btn-success" @click="updateP">Update</button>
           </router-link>
 
           <!-- <div class="card-footer mb-3">
@@ -115,12 +132,30 @@ export default {
         type: "",
         description: "",
         weight: "",
-        image: "",
-        imageName: ""
+        image: ""
       })
     };
   },
+  // created() {
+  //   let uri = "api/products";
+  //   this.axios.get(uri).then(response => {
+  //     this.form = response.data;
+  //     console.log(this.form);
+  //   });
+  // },
+
   methods: {
+    updateP(id) {
+      console.log("fuckkkkk");
+      let uri = "api/products/{id}/" + this.form.id;
+      this.form.put("api/products/" + id).then(response => {
+        this.form = response.data.products;
+        console.log(this.form);
+        console.log(this.form.id);
+        this.$router.push({ name: "products" });
+      });
+      console.log("yessssssssss");
+    },
     validate_fileupload(fileName) {
       var allowed_extensions = new Array("jpg", "png", "gif");
       var file_extension = fileName
