@@ -89,6 +89,7 @@
               value="Choose Image"
               onchange="validate_fileupload(this.value);"
             />
+            <!-- <img src="{{asset('public/uploades/images/image')}}/"> -->
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
             </div>

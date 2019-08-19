@@ -23,7 +23,6 @@
               required
               max="20"
             />
-            <div v-if="errors && errors.name" class="text-danger">{{ errors.name[0] }}</div>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="type">Type</label>
@@ -39,7 +38,6 @@
               <option value="2">Veg</option>
               <option value="3">Animals</option>
             </select>
-            <has-error :form="form" field="type"></has-error>
           </div>
           <div class="form-group">
             <label for="weight">Weight (kg/N)</label>
@@ -76,7 +74,6 @@
               name="description"
               class="form-control"
               placeholder="Description"
-              :class="{ 'is-invalid': form.errors.has('description') }"
               required
             />
             <has-error :form="form" field="description"></has-error>
@@ -90,24 +87,21 @@
               class="form-control"
               @change="imageChanged"
               required
-              :class="{ 'is-invalid': form.errors.has('image') }"
               value="Choose Image"
               onchange="validate_fileupload(this.value);"
             />
-            <has-error :form="form" field="image"></has-error>
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
             </div>
 
-            <!-- <has-error :form="form" field="image"></has-error> -->
             <!-- <br /> -->
             <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->
           </div>
         </div>
 
         <div class="card-footer mb-3">
-          <router-link :to="{ name: 'products' }">
-            <button type="button" class="btn btn-success" @click="productCreate">Create</button>
+          <router-link :to="{ name: 'products' }" v-show="validateForm">
+            <button type="button" class="btn btn-success" :disabled="!isComplete">Create</button>
           </router-link>
 
           <router-link :to="{ name: 'products' }">
@@ -124,6 +118,7 @@
 export default {
   data() {
     return {
+      validateForm: true,
       products: {},
       form: new Form({
         id: "",
@@ -137,10 +132,23 @@ export default {
       })
     };
   },
+  computed: {
+    isComplete() {
+      return (
+        this.form.product_name &&
+        this.form.type &&
+        this.form.weight &&
+        this.form.description &&
+        this.form.weight_type &&
+        this.form.weight &&
+        this.form.image
+      );
+    }
+  },
   methods: {
     productCreate() {
+      validateForm = True;
       this.$Progress.start();
-      this.errors = {};
       axios
         .post("api/products", this.form)
         .then(response => {
@@ -153,12 +161,13 @@ export default {
           });
           this.$Progress.finish();
         })
-        .catch(error => {
-          this.$Progress.fail();
-          if (error.response.status === 422) {
-            this.errors = error.response.data.errors || {};
-          }
-        });
+        .catch(
+          Swal.fire({
+            type: "error",
+            title: "Oops...",
+            text: "Something went wrong!"
+          })
+        );
     },
 
     validate_fileupload(fileName) {
@@ -179,13 +188,13 @@ export default {
     imageChanged(e) {
       // console.log("uploadling");
       let file = e.target.files[0];
-      console.log(file);
+      // console.log(file);
       let reader = new FileReader();
       this.form.imageName = file["name"];
 
       if (file["size"] < 2111775) {
         reader.onloadend = () => {
-          console.log("RESULT", reader.result);
+          // console.log("RESULT", reader.result);
           this.form.image = reader.result;
         };
         console.log(reader.readAsDataURL(file));

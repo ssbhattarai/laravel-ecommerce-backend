@@ -166,21 +166,15 @@ class ProductController extends Controller
             ->orderByRaw('type DESC')
             ->get();
 
-
         return $pcount;
     }
 
     public function export()
     {
         return Excel::download(new ProductsExport, 'products.xlsx');
-        // return ["message" => "i ma from export"];
-        // $items = Products::all();
-        // Excel::create('items', function ($excel) use ($items) {
-        //     $excel->sheet('ExportFile', function ($sheet) use ($items) {
-        //         $sheet->fromArray($items);
-        //     });
-        // })->export('xlsx');
     }
+
+
     public function getProducts($id)
     {
         $p = Products::find($id);

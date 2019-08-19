@@ -35,6 +35,7 @@
         "moment": "^2.24.0",
         "pusher-js": "^4.4.0",
         "sweetalert2": "^8.13.3",
+        "vee-validate": "^2.2.15",
         "vform": "^1.0.1",
         "vue-chartjs": "^3.4.2",
         "vue-progressbar": "^0.7.5",

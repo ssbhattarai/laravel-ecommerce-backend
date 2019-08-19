@@ -89,103 +89,65 @@ input[type="file"] {
                   <i class="fa fa-trash-alt red"></i>
                 </a>
               </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#viewModal"
+                  @click="viewp(product.id)"
+                >
+                  <i class="far fa-eye"></i>
+                </button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
     <router-view></router-view>
+
     <div
       class="modal fade"
-      id="addNew"
+      id="viewModal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="addNewLabel"
+      aria-labelledby="viewModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New Product</h5>
-            <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update Product</h5>
+            <h5 class="modal-title" id="viewModalLabel">Product Full Information.</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form @submit.prevent="editMode ? updateProduct() : createProduct()">
-            <div class="modal-body">
-              <div class="form-group">
-                <input
-                  v-model="form.product_name"
-                  type="text"
-                  name="product_name"
-                  class="form-control"
-                  placeholder="Product Name"
-                  :class="{ 'is-invalid': form.errors.has('product_name') }"
-                />
-                <has-error :form="form" field="product_name"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  v-model="form.type"
-                  type="text"
-                  name="type"
-                  class="form-control"
-                  placeholder="Type"
-                  :class="{ 'is-invalid': form.errors.has('type') }"
-                />
-                <has-error :form="form" field="type"></has-error>
-              </div>
-
-              <div class="form-group">
-                <input
-                  v-model="form.weight"
-                  type="text"
-                  name="weight"
-                  class="form-control"
-                  placeholder="Weight"
-                  :class="{ 'is-invalid': form.errors.has('weight') }"
-                />
-                <has-error :form="form" field="weight"></has-error>
-              </div>
-              <div class="form-group">
-                <textarea
-                  v-model="form.description"
-                  name="description"
-                  class="form-control"
-                  placeholder="Description"
-                  :class="{ 'is-invalid': form.errors.has('description') }"
-                />
-                <has-error :form="form" field="description"></has-error>
-              </div>
-              <div class="form-group">
-                <input
-                  type="file"
-                  name="image"
-                  id="image"
-                  class="form-control"
-                  @change="imageChanged"
-                  required
-                  :class="{ 'is-invalid': form.errors.has('image') }"
-                  value="Choose Image"
-                  onchange="validate_fileupload(this.value);"
-                />
-                <has-error :form="form" field="image"></has-error>
-                <div class="image-preview" v-if="form.image.length > 0">
-                  <img class="preview" :src="form.image" />
-                </div>
-                <!-- <has-error :form="form" field="image"></has-error> -->
-                <!-- <br /> -->
-                <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->
-              </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-xs-9 col-md-5">Product Name</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.product_name}}</div>
             </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-              <button v-show="editMode" type="submit" class="btn btn-success">Update</button>
-              <button v-show="!editMode" type="submit" class="btn btn-primary">Create Product</button>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">Category</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.type}}</div>
             </div>
-          </form>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">weight</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.weight }} {{ viewProd.weight_type}}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">Description</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.description }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">Create at</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.created_at | myDate }}</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -198,9 +160,12 @@ export default {
     return {
       //sorting
       // image: "",
-      pId: this.$route.params.id,
+      pId: "",
       editMode: false,
+      // id: "",
       products: {},
+      viewProd: {},
+      // id = this.form.id,
       form: new Form({
         id: "",
         product_name: "",
@@ -214,6 +179,20 @@ export default {
     };
   },
   methods: {
+    viewp(id) {
+      // id = this.form.id;
+      this.form
+        .get("api/getProduct/" + id)
+        .then(resp => {
+          this.viewProd = resp.data;
+          console.log(resp.data);
+        })
+
+        .catch(function() {
+          alert("Could not load your data");
+        });
+    },
+
     exportExcel() {
       this.$Progress.start();
       axios({
