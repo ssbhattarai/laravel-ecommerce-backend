@@ -27,9 +27,6 @@ Route::get('export', 'API\ProductController@export');
 Route::get('getProduct/{id}', 'API\ProductController@getProducts');
 
 
-
-
-
 // Route::post('/post/create', 'PostController@store');
 // Route::get('/products/edit/{id}', 'API\ProductController@edit');
 // Route::post('/products/update/{id}', 'API\ProductController@update');

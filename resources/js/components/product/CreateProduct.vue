@@ -80,7 +80,7 @@
           </div>
           <div class="form-group">
             <label for="image">Select Image</label>
-            <input
+            <!-- <input
               type="file"
               name="image"
               id="image"
@@ -89,19 +89,24 @@
               required
               value="Choose Image"
               onchange="validate_fileupload(this.value);"
+            />-->
+            <input
+              type="file"
+              name="image"
+              id="image"
+              class="form-control"
+              @change="imageChanged"
+              required
             />
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
             </div>
-
-            <!-- <br /> -->
-            <!-- <input type="button" class="btn btn-info" value="Upload" id="upload" /> -->
           </div>
         </div>
 
         <div class="card-footer mb-3">
-          <router-link :to="{ name: 'products' }" v-show="validateForm">
-            <button type="button" class="btn btn-success" :disabled="!isComplete">Create</button>
+          <router-link :to="{ name: 'products' }" >
+            <button type="submit" class="btn btn-success" @click="productCreate">Create</button>
           </router-link>
 
           <router-link :to="{ name: 'products' }">
@@ -118,7 +123,6 @@
 export default {
   data() {
     return {
-      validateForm: true,
       products: {},
       form: new Form({
         id: "",
@@ -127,27 +131,13 @@ export default {
         description: "",
         weight: "",
         image: "",
-        imageName: "",
         weight_type: ""
       })
     };
   },
-  computed: {
-    isComplete() {
-      return (
-        this.form.product_name &&
-        this.form.type &&
-        this.form.weight &&
-        this.form.description &&
-        this.form.weight_type &&
-        this.form.weight &&
-        this.form.image
-      );
-    }
-  },
   methods: {
     productCreate() {
-      validateForm = True;
+      console.log("testttt");
       this.$Progress.start();
       axios
         .post("api/products", this.form)
@@ -190,7 +180,7 @@ export default {
       let file = e.target.files[0];
       // console.log(file);
       let reader = new FileReader();
-      this.form.imageName = file["name"];
+      this.form.imageName = file;
 
       if (file["size"] < 2111775) {
         reader.onloadend = () => {

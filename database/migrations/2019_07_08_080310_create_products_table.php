@@ -18,10 +18,12 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('user_id')->default('1');
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('product_name');
-            $table->string('type');
+            $table->integer('type')->unsigned();
+            $table->foreign('type')->references('category_id')->on('categories');
             $table->longText('description');
             $table->string('weight');
-            $table->string('weight_type');
+            $table->integer('weight_type')->unsigned();
+            $table->foreign('weight_type')->references('weight_type_id')->on('weight_types');
             $table->string('image')->nullable();
             $table->timestamps();
         });

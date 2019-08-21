@@ -29,10 +29,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/test', 'API\ProductController@export');
+Route::post('/test', 'API\ProductController@store');
 Route::get('/test1', 'API\ProductController@export1');
 
+// Route::get('', function ($id) {
 
+// });
 // Route::get('/home', 'HomeController@test')->name('landing');
 
 

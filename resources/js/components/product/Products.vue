@@ -65,10 +65,10 @@ input[type="file"] {
             <tr v-for="product in products" :key="product.id">
               <td>{{product.id}}</td>
 
-              <td>{{product.product_name | upText}}</td>
-              <td>{{product.type| upText}}</td>
+              <td>{{product.product_name }}</td>
+              <td>{{product.type}}</td>
               <td>{{product.weight}}</td>
-              <td>{{product.created_at | myDate}}</td>
+              <td>{{product.created_at}}</td>
               <td>{{product.description}}</td>
               <td>{{product.image}}</td>
               <td>
@@ -142,7 +142,17 @@ input[type="file"] {
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">Create at</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.created_at | myDate }}</div>
+              <div class="col-xs-3 col-md-5">{{ viewProd.created_at }}</div>
+            </div>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">image</div>
+              <div class="col-xs-3 col-md-5">
+                <button @click="getImgUrl"></button>
+                <!-- <img v-bind:src="" /> -->
+              </div>
+              <div class="image-preview">
+                <!-- <img class="preview" id="image" :src="getImgUrl" /> -->
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -179,6 +189,17 @@ export default {
     };
   },
   methods: {
+    getImgUrl() {
+      // return require("../assets/" + pic);
+      let pic = this.viewProd.image;
+      console.log(pic);
+      return require("../../../../public/uploades/images/" + pic);
+      popup = window.open();
+      popup.document.write("image");
+      popup.focus(); //required for IE
+      popup.print();
+    },
+    displayImgae() {},
     viewp(id) {
       // id = this.form.id;
       this.form

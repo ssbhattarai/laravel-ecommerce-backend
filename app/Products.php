@@ -4,6 +4,7 @@ namespace App;
 
 use APP\User;
 use Illuminate\Database\Eloquent\Model;
+use APP\Category;
 
 class Products extends Model
 {
@@ -15,8 +16,14 @@ class Products extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function weight_types()
+
+    public function category()
     {
-        return $this->hasmany(weightType::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function weight_type()
+    {
+        return $this->belongsTo(WeightType::class);
     }
 }
