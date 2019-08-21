@@ -60,11 +60,12 @@
               required
             >
               <option value>Select</option>
-              <option value="kg">Kg</option>
-              <option value="pathi">Pathi</option>
-              <option value="mana">Mana</option>
-              <option value="dharni">Dharni</option>
-              <option value="Ota">Ota</option>
+              <option value="1">Kg</option>
+              <option value="2">Muri</option>
+              <option value="3">Pathi</option>
+              <option value="4">Mana</option>
+              <option value="5">Dharni</option>
+              <option value="6">Ota</option>
             </select>
           </div>
           <div class="form-group">
@@ -105,7 +106,7 @@
         </div>
 
         <div class="card-footer mb-3">
-          <router-link :to="{ name: 'products' }" >
+          <router-link :to="{ name: 'products' }">
             <button type="submit" class="btn btn-success" @click="productCreate">Create</button>
           </router-link>
 
