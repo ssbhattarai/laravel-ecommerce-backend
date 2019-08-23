@@ -20,6 +20,11 @@ input[type="file"] {
   color: white;
   background-color: darkcyan;
 }
+
+
+img {
+    height: 119px;
+}
 </style>
 
 <template>
@@ -55,7 +60,8 @@ input[type="file"] {
               <th>ID</th>
               <th>Product Name</th>
               <th>Type</th>
-              <th>Weight(N/KG)</th>
+              <th>Weight</th>
+              <th>Weight Type</th>
               <th>Created At</th>
               <th>Description</th>
               <th>image</th>
@@ -68,6 +74,7 @@ input[type="file"] {
               <td>{{product.product_name }}</td>
               <td>{{product.type}}</td>
               <td>{{product.weight}}</td>
+              <td>{{product.weight_type}}</td>
               <td>{{product.created_at}}</td>
               <td>{{product.description}}</td>
               <td>{{product.image}}</td>
@@ -147,8 +154,11 @@ input[type="file"] {
             <div class="row">
               <div class="col-xs-9 col-md-5">image</div>
               <div class="col-xs-3 col-md-5">
-                <button @click="getImgUrl"></button>
+                <!-- <button @click="getImgUrl"></button> -->
                 <!-- <img v-bind:src="" /> -->
+                <div>
+                  <img :src="'/uploades/images/' + viewProd.image"  style="height:119px"/>
+                </div>
               </div>
               <div class="image-preview">
                 <!-- <img class="preview" id="image" :src="getImgUrl" /> -->

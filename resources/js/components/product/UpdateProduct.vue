@@ -56,15 +56,16 @@
               class="custom-select mr-sm-2 form-control"
               id="weight_type"
               v-model="form.weight_type"
-              name="weight_type"
+              name="weght_type"
               required
             >
               <option value>Select</option>
-              <option value="kg">Kg</option>
-              <option value="pathi">Pathi</option>
-              <option value="mana">Mana</option>
-              <option value="dharni">Dharni</option>
-              <option value="Ota">Ota</option>
+              <option value="1">Kg</option>
+              <option value="2">Muri</option>
+              <option value="3">Pathi</option>
+              <option value="4">Mana</option>
+              <option value="5">Dharni</option>
+              <option value="6">Ota</option>
             </select>
           </div>
           <div class="form-group">
@@ -86,8 +87,6 @@
               class="form-control"
               @change="imageChanged"
               required
-              value="Choose Image"
-              onchange="validate_fileupload(this.value);"
             />
             <!-- <img src="{{asset('public/uploades/images/image')}}/"> -->
             <div class="image-preview" v-if="form.image.length > 0">
@@ -145,23 +144,21 @@ export default {
   methods: {
     saveForm() {
       // event.preventDefault();
-
       var app = this;
-
       var newForm = app.form;
-
       axios
         .patch("api/products/" + app.productId, newForm)
 
         .then(function(resp) {
           // alert("this is too much");
-          // app.$router.replace("/products/:id");
+          // this.$router.push({ name: "products" });
           console.log("data update susefully");
+          // alert("product updateed");
         })
 
         .catch(function(resp) {
           console.log(resp);
-          alert("Could not create your company");
+          alert("Could not update your product");
         });
     },
     updateP(id) {
@@ -171,7 +168,6 @@ export default {
         this.form = response.data.products;
         console.log(this.form);
         console.log(this.form.id);
-        this.$router.push({ name: "products" });
       });
       console.log("yessssssssss");
     },

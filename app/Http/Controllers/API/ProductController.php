@@ -38,9 +38,6 @@ class ProductController extends Controller
         // $count = Products::get();
         // $count->count();
         return Products::all();
-        // return new ProductsCollection(Products::all());
-        //original code stop
-
     }
 
     /**
@@ -114,8 +111,27 @@ class ProductController extends Controller
             'type' => 'required',
             'weight' => 'required|integer',
         ]);
+
+        $exploded = explode(',', $request->image);
+        $decoded = base64_decode($exploded[1]);
+
+        if (str_contains($exploded[0], 'jpeg'))
+            $extension = 'jpg';
+        else
+            $extension = 'png';
+
+        $fileName = str_random() . '.' . $extension;
+        $path = public_path('/uploades/images') . '/' . $fileName;
+        file_put_contents($path, $decoded);
+
+
         $products = Products::findOrFail($id);
-        $products->update($request->all());
+        $products->update(
+            $request->except('image') + [
+                'user_id' => \Auth::id(),
+                'image' => $fileName
+            ]
+        );
         return $products;
     }
 

@@ -31,6 +31,8 @@ window.Swal = Swal;
 window.Fire = new Vue();
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
+import VeeValidate from "vee-validate";
+Vue.use(VeeValidate);
 Vue.use(VueProgressBar, {
     color: "rgb(143, 255, 199)",
     failedColor: "red",

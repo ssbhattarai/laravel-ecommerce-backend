@@ -10,19 +10,25 @@
       <div class="card-header bg-dark">
         <h3 class="card-title">create products</h3>
       </div>
-      <form>
+      <form @submit.prevent="handleSubmit">
         <div class="card-body">
           <div class="form-group">
             <label for="product_name">Name of Produdct</label>
             <input
               v-model="form.product_name"
+              v-validate="'required'"
               type="text"
               class="form-control"
               id="product_name"
+              name="product_name"
               placeholder="Enter Product name"
               required
-              max="20"
+              :class="{ 'is-invalid': submitted && errors.has('product_name') }"
             />
+            <div
+              v-if="submitted && errors.has('product_name')"
+              class="invalid-feedback"
+            >{{ errors.first('Product_name') }}</div>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="type">Type</label>
@@ -133,10 +139,19 @@ export default {
         weight: "",
         image: "",
         weight_type: ""
-      })
+      }),
+      submitted: false
     };
   },
   methods: {
+    handleSubmit(e) {
+      this.submitted = true;
+      this.$validator.validate().then(valid => {
+        if (valid) {
+          alert("SUCCESS!! :-)\n\n" + JSON.stringify(this.form));
+        }
+      });
+    },
     productCreate() {
       console.log("testttt");
       this.$Progress.start();
