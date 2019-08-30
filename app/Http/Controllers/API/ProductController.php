@@ -113,26 +113,36 @@ class ProductController extends Controller
         ]);
 
         $exploded = explode(',', $request->image);
-        $decoded = base64_decode($exploded[1]);
+        if (is_array($exploded == true)) {
+            $decoded = base64_decode($exploded[1]);
 
-        if (str_contains($exploded[0], 'jpeg'))
-            $extension = 'jpg';
-        else
-            $extension = 'png';
+            if (str_contains($exploded[0], 'jpeg'))
+                $extension = 'jpg';
+            else
+                $extension = 'png';
 
-        $fileName = str_random() . '.' . $extension;
-        $path = public_path('/uploades/images') . '/' . $fileName;
-        file_put_contents($path, $decoded);
+            $fileName = str_random() . '.' . $extension;
+            $path = public_path('/uploades/images') . '/' . $fileName;
+            file_put_contents($path, $decoded);
 
 
-        $products = Products::findOrFail($id);
-        $products->update(
-            $request->except('image') + [
-                'user_id' => \Auth::id(),
-                'image' => $fileName
-            ]
-        );
-        return $products;
+            $products = Products::findOrFail($id);
+            $products->update(
+                $request->except('image') + [
+                    'user_id' => \Auth::id(),
+                    'image' => $fileName
+                ]
+            )->refresh();
+
+
+            return $products;
+        } else {
+            $products = Products::findOrFail($id);
+            $products->update(
+                $request->except('image')
+            );
+            return $products;
+        }
     }
 
     public function edit($id)

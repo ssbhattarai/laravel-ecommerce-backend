@@ -26,4 +26,14 @@ class Products extends Model
     {
         return $this->belongsTo(WeightType::class);
     }
+
+    public function getProductNameAttributes($value)
+    {
+        return ucwords($value);
+    }
+
+    public function getDescriptionAttributes($value)
+    {
+        return ucwords($value);
+    }
 }

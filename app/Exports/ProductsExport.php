@@ -22,7 +22,7 @@ class ProductsExport implements FromCollection, WithHeadings
     {
         return [
             'Id',
-            'User id',
+            'User Id',
             'Product Name',
             'Type',
             'Description',

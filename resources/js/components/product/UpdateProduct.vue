@@ -86,6 +86,7 @@
               id="image"
               class="form-control"
               @change="imageChanged"
+              
               required
             />
             <!-- <img src="{{asset('public/uploades/images/image')}}/"> -->

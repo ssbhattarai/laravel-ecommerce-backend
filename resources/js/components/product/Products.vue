@@ -21,9 +21,8 @@ input[type="file"] {
   background-color: darkcyan;
 }
 
-
 img {
-    height: 119px;
+  height: 119px;
 }
 </style>
 
@@ -33,9 +32,9 @@ img {
       <div class="card-header">
         <h3 class="card-title">
           Available Products
-          <a href="#" @click="exportExcel">
-            <button class="btn btn-outline-info" style="margin-left: 515px;">
-              Export excel
+          <a href="#" @click="exportExcel" style="margin-left: 515px;">
+            <button class="btn btn-outline-info">
+              Export Excel
               <i class="fas fa-download"></i>
             </button>
           </a>
@@ -75,7 +74,7 @@ img {
               <td>{{product.type}}</td>
               <td>{{product.weight}}</td>
               <td>{{product.weight_type}}</td>
-              <td>{{product.created_at}}</td>
+              <td>{{product.created_at | myDate}}</td>
               <td>{{product.description}}</td>
               <td>{{product.image}}</td>
               <td>
@@ -133,23 +132,39 @@ img {
           <div class="modal-body">
             <div class="row">
               <div class="col-xs-9 col-md-5">Product Name</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.product_name}}</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.product_name}}</b>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">Category</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.type}}</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.type}}</b>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">weight</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.weight }} {{ viewProd.weight_type}}</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.weight }}</b>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-9 col-md-5">weight type</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.weight_type}}</b>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">Description</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.description }}</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.description }}</b>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">Create at</div>
-              <div class="col-xs-3 col-md-5">{{ viewProd.created_at }}</div>
+              <div class="col-xs-3 col-md-5">
+                <b>{{ viewProd.created_at | myDate}}</b>
+              </div>
             </div>
             <div class="row">
               <div class="col-xs-9 col-md-5">image</div>
@@ -157,12 +172,12 @@ img {
                 <!-- <button @click="getImgUrl"></button> -->
                 <!-- <img v-bind:src="" /> -->
                 <div>
-                  <img :src="'/uploades/images/' + viewProd.image"  style="height:119px"/>
+                  <img :src="'/uploades/images/' + viewProd.image" style="height:119px" />
                 </div>
               </div>
-              <div class="image-preview">
-                <!-- <img class="preview" id="image" :src="getImgUrl" /> -->
-              </div>
+              <!-- <div class="image-preview"> -->
+              <!-- <img class="preview" id="image" :src="getImgUrl" /> -->
+              <!-- </div> -->
             </div>
           </div>
           <div class="modal-footer">
