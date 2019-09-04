@@ -35,8 +35,6 @@ class ProductController extends Controller
      */
     public function index()
     {   //original code start
-        // $count = Products::get();
-        // $count->count();
         return Products::all();
     }
 

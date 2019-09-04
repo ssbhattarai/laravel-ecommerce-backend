@@ -22,22 +22,24 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 Vue.component("pagination", require("laravel-vue-pagination"));
 
-// for the table to be sorted
-import SortedTablePlugin from "vue-sorted-table";
-Vue.use(SortedTablePlugin);
-// for the table to be sorted
-
 window.Swal = Swal;
 window.Fire = new Vue();
 import VueRouter from "vue-router";
 Vue.use(VueRouter);
-import VeeValidate from "vee-validate";
-Vue.use(VeeValidate);
+
+import Vuelidate from 'vuelidate';
+Vue.use(Vuelidate);
+
+
+
 Vue.use(VueProgressBar, {
     color: "rgb(143, 255, 199)",
     failedColor: "red",
     height: "4px"
 });
+
+
+import Vue from 'vue'
 // for toast alert
 const Toast = Swal.mixin({
     toast: true,

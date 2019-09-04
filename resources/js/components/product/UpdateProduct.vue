@@ -3,6 +3,10 @@
   border-color: #6265e4 !important;
   box-shadow: 0 0 5px rgba(98, 101, 228, 1) !important;
 }
+
+.error-message {
+  color: red;
+}
 </style>
 <template>
   <div class="container">
@@ -10,7 +14,7 @@
       <div class="card-header bg-dark">
         <h3 class="card-title">Update</h3>
       </div>
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="card-body">
           <div class="form-group">
             <label for="product_name">Name of Produdct</label>
@@ -23,6 +27,7 @@
               required
               max="20"
             />
+            <p v-if="$v.form.product_name.$invalid" class="error-message">This field is invalid*</p>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="type">Type</label>
@@ -31,13 +36,13 @@
               id="type"
               v-model="form.type"
               name="type"
-              required
             >
               <option default>Select Type</option>
               <option value="1">Fruits</option>
               <option value="2">Veg</option>
               <option value="3">Animals</option>
             </select>
+            <p v-if="$v.form.type.$invalid" class="error-message">This field is invalid*</p>
           </div>
           <div class="form-group">
             <label for="weight">Weight (kg/N)</label>
@@ -49,6 +54,7 @@
               name="weight"
               placeholder="Enter Weight"
             />
+            <p v-if="$v.form.weight.$invalid" class="error-message">This field is invalid*</p>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="type">Weight Type</label>
@@ -67,6 +73,7 @@
               <option value="5">Dharni</option>
               <option value="6">Ota</option>
             </select>
+            <p v-if="$v.form.weight_type.$invalid" class="error-message">This field is invalid*</p>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="description">Description</label>
@@ -77,6 +84,7 @@
               placeholder="Description"
               required
             />
+            <p v-if="$v.form.description.$invalid" class="error-message">This field is invalid*</p>
           </div>
           <div class="form-group">
             <label for="image">Select Image</label>
@@ -86,9 +94,9 @@
               id="image"
               class="form-control"
               @change="imageChanged"
-              
               required
             />
+            <p v-if="$v.form.image.$invalid" class="error-message">This field is invalid*</p>
             <!-- <img src="{{asset('public/uploades/images/image')}}/"> -->
             <div class="image-preview" v-if="form.image.length > 0">
               <img class="preview" :src="form.image" />
@@ -100,7 +108,13 @@
 
         <div class="card-footer mb-3">
           <router-link :to="{ name: 'products' }">
-            <button type="submit" class="btn btn-success" @click="saveForm()">Update</button>
+            <button
+              type="submit"
+              class="btn btn-success"
+              :disabled="$v.form.product_name.$invalid || $v.form.weight.$invalid  || $v.form.weight_type.$invalid ||
+              $v.form.description.$invalid || $v.form.image.$invalid "
+              @click="saveForm()"
+            >Update</button>
           </router-link>
 
           <!-- <div class="card-footer mb-3">
@@ -119,6 +133,14 @@
 </template>
 
 <script>
+import {
+  required,
+  minLength,
+  between,
+  integer,
+  maxLength,
+  alpha
+} from "vuelidate/lib/validators/";
 export default {
   data() {
     return {
@@ -134,15 +156,40 @@ export default {
       })
     };
   },
-  // created() {
-  //   let uri = "api/products";
-  //   this.axios.get(uri).then(response => {
-  //     this.form = response.data;
-  //     console.log(this.form);
-  //   });
-  // },
-
+  validations: {
+    form: new Form({
+      product_name: {
+        required,
+        minLength: minLength(4),
+        alpha
+      },
+      type: {
+        required
+      },
+      weight: {
+        required,
+        integer
+      },
+      weight_type: {
+        required
+      },
+      description: {
+        required,
+        maxLength: maxLength(120)
+      },
+      image: {
+        required
+      }
+    })
+  },
   methods: {
+    submitForm() {
+      if (!this.$v.form.$invalid) {
+        console.log("Form is submitted", this.form);
+      } else {
+        console.log("🔴invalid Form");
+      }
+    },
     saveForm() {
       // event.preventDefault();
       var app = this;

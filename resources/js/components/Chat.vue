@@ -1,23 +1,38 @@
 <template>
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">Chats</div>
-            <div class="card-body">
-                Chats
-            </div>
-        </div>
-    </div>
+  <div id="app">
+    <label for="fname">Name*</label>
+    <input id="fname" class="full" v-model="$v.name.$model" type="text">
+  </div>
 </template>
 
 <script>
-    export default {
-        created() {
-            axios.get('api/messages').then(()=>{
-            console.log('MEssage is fetched from data base.');
-            })
-            .catch(()=>{
-            console.log('Message created is failed');                
-            })
-        }
+import { required, minLength } from "vuelidate/lib/validators";
+
+export default {
+  data() {
+    return {
+      name: ""
+    };
+  },
+  validations: {
+    name: {
+      required
     }
+  }
+};
 </script>
+
+<style>
+/* #app {
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+} */
+
+.error {
+  color: red;
+}
+</style>
