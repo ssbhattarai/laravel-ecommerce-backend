@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 // use Maatwebsite\Excel\Facades;
 use App\Exports\ProductsExport;
-use App\Http\Resources\ProductsCollection;
+use App\Http\Resources\ProductsResource;
 
 use function GuzzleHttp\Promise\all;
 
@@ -36,6 +36,9 @@ class ProductController extends Controller
     public function index()
     {   //original code start
         return Products::all();
+
+        // $products = DB::table('products')->paginate(10);
+        // return $products;
     }
 
     /**
@@ -203,5 +206,15 @@ class ProductController extends Controller
     {
         $p = Products::find($id);
         return response()->json($p);
+    }
+
+
+    public function getProductsForDataTable(Request $request)
+    {
+
+        $query = Products::orderBy('id');
+        $users = $query->paginate($request->per_page);
+
+        return ProductsResource::collection($users);
     }
 }

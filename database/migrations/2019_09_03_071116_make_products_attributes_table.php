@@ -13,7 +13,15 @@ class MakeProductsAttributesTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('order_item', function (Blueprint $table) {
+            $table->bigIncrements('id')->unsigned();
+            $table->integer('order_id')->unsigned();
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->integer('product_id')->unsigned();
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->integer('qty');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class MakeProductsAttributesTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('orders');
     }
 }

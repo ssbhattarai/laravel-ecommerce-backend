@@ -29,6 +29,7 @@
         "canvas": "^2.5.0",
         "chart.js": "^2.8.0",
         "fs": "0.0.1-security",
+        "jw-vue-pagination": "^1.0.1",
         "laravel-echo": "^1.5.4",
         "laravel-vue-pagination": "^2.3.0",
         "mdbvue": "^5.8.0",

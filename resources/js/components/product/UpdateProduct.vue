@@ -140,7 +140,7 @@ import {
   integer,
   maxLength,
   alpha
-} from "vuelidate/lib/validators/";
+} from "vuelidate/lib/validators";
 export default {
   data() {
     return {

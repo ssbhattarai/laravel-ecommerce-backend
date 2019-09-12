@@ -52,15 +52,29 @@
                                     <li class="nav-icon2">
                                         <a href="" ><i class="fas fa-search" id="navicon2"></i></a>
                                     </li>
+                                     
                                     <li class="nav-icon2">
                                             <a href=""><i class="fas fa-shopping-cart" id="navicon2"></i></a>
                                             
                                         </li>
+                                         <li class="nav-item dropdown nav-icon2">
+                                          <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                                            <i class="fas fa-user" id="navicon2"></i>
+                                          </a>
+                                          <div class="dropdown-menu">
+                                          <a class="dropdown-item" href="{{route('login')}}">Login</a>
+                                            <a class="dropdown-item" href="#"></a>
+                                            <a class="dropdown-item" href="#">Link 3</a>
+                                          </div>
+                                        </li>
                                     <li class="nav-icon2">
+                                      <a href="{{ route('login') }}";">
+                                         <i class="fas fa-user" id="navicon2"></i>
+                                         
                                          <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                         <i class="fas fa-user" id="navicon2"></i>
+                                         <i class="fas fa-off" id="navicon2"></i>
                                     </a>
                                      
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

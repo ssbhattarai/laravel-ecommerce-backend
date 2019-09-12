@@ -30,7 +30,9 @@ Vue.use(VueRouter);
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
-
+// pagination package 
+// import JwPagination from 'jw-vue-pagination';
+// Vue.component('jw-pagination', JwPagination);
 
 Vue.use(VueProgressBar, {
     color: "rgb(143, 255, 199)",
@@ -182,4 +184,5 @@ Vue.component(
 
 window.Vue = require("vue");
 Vue.use(require("vue-resource"));
-Vue.component("pagination", require("laravel-vue-pagination"));
+
+Vue.component('pagination', require('laravel-vue-pagination'));

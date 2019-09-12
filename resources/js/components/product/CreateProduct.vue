@@ -63,7 +63,7 @@
               class="custom-select mr-sm-2 form-control"
               id="weight_type"
               v-model="form.weight_type"
-              name="weght_type"
+              name="weight_type"
               required
             >
               <option value>Select</option>
@@ -74,7 +74,7 @@
               <option value="5">Dharni</option>
               <option value="6">Ota</option>
             </select>
-            <p v-if="$v.form.weight_type.$invalid" class="error-message">This Field is invalid*</p>
+            <p v-if="$v.form.weight_type.$invalid" class="error-message">Please choose the *</p>
           </div>
           <div class="form-group">
             <label class="mr-sm-2" for="description">Description</label>
@@ -194,7 +194,7 @@ export default {
       }
     },
     productCreate() {
-      console.log("🙋");
+      console.log("🖕");
       this.$Progress.start();
       axios
         .post("api/products", this.form)

@@ -5,6 +5,10 @@ namespace App;
 use APP\User;
 use Illuminate\Database\Eloquent\Model;
 use APP\Category;
+use APP\OrderItem;
+use APP\Order;
+
+
 
 class Products extends Model
 {
@@ -25,6 +29,15 @@ class Products extends Model
     public function weight_type()
     {
         return $this->belongsTo(WeightType::class);
+    }
+    public function orders()
+    {
+        return $this->belongsTo(Order::class);
+    }
+
+    public function order_item()
+    {
+        return $this->belongsTo(OrderItem::class);
     }
 
     public function getProductNameAttributes($value)

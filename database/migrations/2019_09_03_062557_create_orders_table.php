@@ -14,10 +14,9 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            // $table->integer('user_id')->unsigned()->nullable();
-            // $table->foreign('user_id')->references('id')->on('users')
-            //     ->onDelete('set null')->onUpdate('cascade');
+            $table->integer('id')->unique()->autoIncrement()->unsigned();
+            $table->unsignedBigInteger('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('billing_email');
             $table->string('billing_name');
             $table->string('billing_city');
