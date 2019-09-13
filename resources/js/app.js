@@ -30,6 +30,10 @@ Vue.use(VueRouter);
 import Vuelidate from 'vuelidate';
 Vue.use(Vuelidate);
 
+import SortedTablePlugin from "vue-sorted-table";
+
+Vue.use(SortedTablePlugin);
+
 // pagination package 
 // import JwPagination from 'jw-vue-pagination';
 // Vue.component('jw-pagination', JwPagination);

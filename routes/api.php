@@ -21,12 +21,18 @@ Route::apiResources([
     'products' => 'API\ProductController'
 ]);
 
+
+
 Route::get('findProduct', 'API\ProductController@search');
 Route::get('countProduct', 'API\ProductController@category');
 Route::get('export', 'API\ProductController@export');
 Route::get('getProduct/{id}', 'API\ProductController@getProducts');
-Route::get('test', 'API\ProductController@getProductsForDataTable');
+Route::get('test', 'API\OrderController@index');
 
+
+Route::apiResources([
+    'orders' => 'API\OrderController'
+]);
 
 
 // Route::post('/post/create', 'PostController@store');

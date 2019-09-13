@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use APP\Category;
 use APP\OrderItem;
 use APP\Order;
+use APP\CartItem;
 
 
 
@@ -34,6 +35,12 @@ class Products extends Model
     {
         return $this->belongsTo(Order::class);
     }
+
+    public function cart_items()
+    {
+        return $this->belongsTo(CartItem::class);
+    }
+
 
     public function order_item()
     {

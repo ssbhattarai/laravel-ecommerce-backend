@@ -396,7 +396,6 @@ export default {
         .post("api/products")
         .then(() => {
           Fire.$emit("afterCreated");
-          $("#addNew").modal("hide");
 
           this.$Progress.finish();
           Toast.fire({
@@ -405,7 +404,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$Progress.fail();
+          // this.$Progress.fail();
         });
     }
   },
