@@ -36,6 +36,23 @@
           </router-link>
         </div>
       </div>
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{orderCount}}</h3>
+
+            <p>Total Orders</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <router-link to="/orders" class="small-box-footer">
+            More info
+            <i class="fas fa-arrow-circle-right"></i>
+          </router-link>
+        </div>
+      </div>
     </div>
     <router-view></router-view>
   </div>
@@ -51,6 +68,7 @@ export default {
       productCount: {},
       editMode: false,
       products: {},
+      orderCount: "",
       form: new Form({
         id: "",
         product_name: "",
@@ -75,11 +93,17 @@ export default {
     },
     loadProducts() {
       axios.get("api/products").then(({ data }) => (this.products = data));
+    },
+    countOrder() {
+      axios.get("api/orderCount").then(data => {
+        this.orderCount = data.data;
+      });
     }
   },
   created() {
     this.countP();
     this.loadProducts();
+    this.countOrder();
   }
 };
 </script>

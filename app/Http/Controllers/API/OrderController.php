@@ -85,4 +85,10 @@ class OrderController extends Controller
     {
         //
     }
+
+    public function orderCount()
+    {
+        $count = Order::count();
+        return $count;
+    }
 }

@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">Order Table</div>
+          <div class="card-header">
+            <h3>Order Table</h3>
+          </div>
 
           <div class="card-body">
             <SortedTable :values="orders">
@@ -13,19 +15,19 @@
                     <SortLink name="id" style="color:black;">ID</SortLink>
                   </th>
                   <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_email" style="color:black;">billing_email</SortLink>
+                    <SortLink name="billing_email" style="color:black;">Billing Email</SortLink>
                   </th>
                   <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_name" style="color:black;">billing_name</SortLink>
+                    <SortLink name="billing_name" style="color:black;">Billing Name</SortLink>
                   </th>
                   <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_city" style="color:black;">billing_city</SortLink>
+                    <SortLink name="billing_city" style="color:black;">Billing City</SortLink>
                   </th>
                   <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_province" style="color:black;">billing_province</SortLink>
+                    <SortLink name="billing_province" style="color:black;">Billing Province</SortLink>
                   </th>
                   <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_phone" style="color:black;">billing_phone</SortLink>
+                    <SortLink name="billing_phone" style="color:black;">Billing Phone</SortLink>
                   </th>
                 </tr>
               </thead>

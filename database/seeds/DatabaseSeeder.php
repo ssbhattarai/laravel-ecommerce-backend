@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
             RoleTableSeeder::class,
             UserTableSeeder::class,
             CategorySeeder::class,
-            WeightTypeSeeder::class
+            WeightTypeSeeder::class,
+            OrderSeeder::class
         ]);
     }
 }
