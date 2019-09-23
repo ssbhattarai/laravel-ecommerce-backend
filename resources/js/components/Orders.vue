@@ -1,66 +1,91 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">
-            <h3>Order Table</h3>
-          </div>
-
-          <div class="card-body">
-            <SortedTable :values="orders">
-              <thead>
-                <tr>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="id" style="color:black;">ID</SortLink>
-                  </th>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_email" style="color:black;">Billing Email</SortLink>
-                  </th>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_name" style="color:black;">Billing Name</SortLink>
-                  </th>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_city" style="color:black;">Billing City</SortLink>
-                  </th>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_province" style="color:black;">Billing Province</SortLink>
-                  </th>
-                  <th scope="col" style="text-align: left; width: 10rem; color:black;">
-                    <SortLink name="billing_phone" style="color:black;">Billing Phone</SortLink>
-                  </th>
-                </tr>
-              </thead>
-              <tbody slot="body" slot-scope="sort">
-                <!-- remaing to add the sort in loop as sort:orders -->
-                <tr v-for="value in orders" :key="value.id">
-                  <td>{{ value.id }}</td>
-                  <td>{{ value.billing_email }}</td>
-                  <td>{{ value.billing_name }}</td>
-                  <td>{{ value.billing_city }}</td>
-                  <td>{{ value.billing_province }}</td>
-                  <td>{{ value.billing_phone }}</td>
-                </tr>
-              </tbody>
-            </SortedTable>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h3 style="text-align:center;">Order Information</h3>
+    <ejs-grid
+      ref="grid"
+      id="Grid"
+      :dataSource="orders"
+      :allowPaging="true"
+      :allowSorting="true"
+      :allowFiltering="true"
+      :allowGrouping="false"
+      :pageSettings="pageSettings"
+      :allowPdfExport="true"
+      :toolbarClick="toolbarClick"
+      :toolbar="toolbarOptions"
+      :allowExcelExport="true"
+    >
+      <e-columns>
+        <e-column field="id" headerText="ID" textAlign="Center" width="15" style="width:auto;"></e-column>
+        <e-column field="billing_email" headerText="Billing Email" width="25"></e-column>
+        <e-column field="billing_name" headerText="Billing Name" width="25"></e-column>
+        <e-column field="billing_phone" headerText="Phone" width="25"></e-column>
+        <e-column field="billing_city" headerText="Billing City" width="25"></e-column>
+      </e-columns>
+    </ejs-grid>
   </div>
 </template>
- 
 <script>
+import {
+  Page,
+  Sort,
+  Filter,
+  Group,
+  Toolbar,
+  PdfExport,
+  ExcelExport
+} from "@syncfusion/ej2-vue-grids";
+
 export default {
   data() {
     return {
-      orders: []
+      orders: {},
+      toolbarOptions: ["ExcelExport"],
+      pageSettings: { pageSize:  10}
     };
   },
   created() {
     axios.get("api/orders").then(response => {
       this.orders = response.data;
+      console.log(this.orders);
     });
+  },
+  methods: {
+    toolbarClick(args) {
+      // if (args.item.id === "Grid_pdfexport") {
+      // 'Grid_pdfexport' -> Grid component id + _ + toolbar item name
+      // let pdfExportProperties = {
+      //   header: {
+      //     fromTop: 0,
+      //     height: 130,
+      //     contents: [
+      //       {
+      //         type: "Text",
+      //         value: "Northwind Traders",
+      //         position: { x: 0, y: 50 },
+      //         pageSize: "A4",
+      //         style: { textBrushColor: "#FF0000", fontSize: 13 }
+      //       }just fun man test p
+      //     ]
+      //   }
+      // };
+      // this.$refs.grid.pdfExport();
+      if (args.item.id === "Grid_excelexport") {
+        // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
+        let excelExportProperties = {
+          theme: {
+            header: { fontName: "Segoe UI", fontColor: "#666666" },
+            record: { fontName: "Segoe UI", fontColor: "#666666" },
+            caption: { fontName: "Segoe UI", fontColor: "#666666" }
+          }
+        };
+        this.$refs.grid.excelExport();
+      }
+    }
+  },
+  provide: {
+    grid: [Page, Sort, Filter, Group, Toolbar, PdfExport, ExcelExport]
   }
-};
+}
+
 </script>

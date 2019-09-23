@@ -25,6 +25,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@syncfusion/ej2": "^17.2.51",
+        "@syncfusion/ej2-vue-base": "^17.2.47",
+        "@syncfusion/ej2-vue-buttons": "^17.2.47",
+        "@syncfusion/ej2-vue-grids": "^17.2.51",
         "admin-lte": "^3.0.0-alpha.2",
         "canvas": "^2.5.0",
         "chart.js": "^2.8.0",

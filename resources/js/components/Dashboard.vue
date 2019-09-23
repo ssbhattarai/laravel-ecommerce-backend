@@ -95,9 +95,15 @@ export default {
       axios.get("api/products").then(({ data }) => (this.products = data));
     },
     countOrder() {
-      axios.get("api/orderCount").then(data => {
-        this.orderCount = data.data;
-      });
+      axios
+        .get("api/orderCount")
+        .then(data => {
+          this.orderCount = data.data;
+          console.log(this.orderCount);
+        })
+        .catch(() => {
+          console.log("Error on Count order");
+        });
     }
   },
   created() {

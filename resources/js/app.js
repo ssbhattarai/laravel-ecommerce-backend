@@ -16,6 +16,25 @@ import {
     AlertError
 } from "vform"; // import different packages from vue
 
+//Essential js
+import {
+    GridPlugin,
+    Page,
+    Sort
+} from '@syncfusion/ej2-vue-grids';
+import {
+    ButtonPlugin
+} from "@syncfusion/ej2-vue-buttons";
+import {
+    enableRipple
+} from "@syncfusion/ej2-base";
+
+enableRipple(true);
+Vue.use(ButtonPlugin, Page, Sort);
+Vue.use(GridPlugin);
+
+
+
 // decleare form,hasError, AlertError in the for use in any component
 window.Form = Form;
 Vue.component(HasError.name, HasError);

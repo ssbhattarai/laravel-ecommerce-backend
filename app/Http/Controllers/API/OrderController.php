@@ -18,7 +18,14 @@ class OrderController extends Controller
     public function index()
     {
         return Order::all();
+        // $data = DB::table('order_items')
+        //     ->join('orders', 'orders.id', '=', 'order_items.order_id')
+        //     ->join('products', 'products.id', '=', 'order_items.product_id')
+        //     ->select('products.product_name', 'orders.billing_email', 'order_items.qty')
+        //     ->get();
+        // return $data;
     }
+
 
     /**
      * Show the form for creating a new resource.
