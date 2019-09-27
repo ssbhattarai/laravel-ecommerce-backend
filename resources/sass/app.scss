@@ -1,5 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons');
+// <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
 
 // Variables
 @import 'variables';
@@ -17,6 +19,7 @@ $fa-font-path:"../webfonts";
 
 
 
+
 @import '~@syncfusion/ej2-calendars/styles/material.css';
 @import '~@syncfusion/ej2-dropdowns/styles/material.css';
 @import '~@syncfusion/ej2-inputs/styles/material.css';
@@ -24,3 +27,5 @@ $fa-font-path:"../webfonts";
 @import '~@syncfusion/ej2-popups/styles/material.css';
 @import '~@syncfusion/ej2-splitbuttons/styles/material.css';
 @import "~@syncfusion/ej2-vue-grids/styles/material.css";
+
+@import '~vuetify/dist/vuetify.min.css';

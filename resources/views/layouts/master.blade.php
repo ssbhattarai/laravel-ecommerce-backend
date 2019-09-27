@@ -143,6 +143,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/suppliers" class="nav-link">
+              <i class="nav-icon fa fa-list green"></i>
+              <p>
+                Suppliers
+                <span class="right badge badge-danger"></span>
+              </p>
+            </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/delivery" class="nav-link">
               <i class="nav-icon fa fa-truck"></i>
               <p>

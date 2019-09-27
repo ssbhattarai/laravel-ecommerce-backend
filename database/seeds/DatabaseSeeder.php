@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             CategorySeeder::class,
             WeightTypeSeeder::class,
-            OrderSeeder::class
+            OrderSeeder::class,
+            SupplierTableSeeder::class
         ]);
     }
 }

@@ -41,3 +41,8 @@ Route::get('orderCount', 'API\OrderController@orderCount');
 // Route::post('/products/update/{id}', 'API\ProductController@update');
 // Route::delete('/products/delete/{id}', 'API\ProductController@delete');
 // Route::get('/posts', 'PostController@index');
+
+
+Route::apiResources([
+    'suppliers' => 'API\SupplierController'
+]);

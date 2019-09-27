@@ -103,7 +103,7 @@ img {
                   data-target="#viewModal"
                   @click="viewp(product.id)"
                 >
-                  <i class="far fa-eye"></i>
+                  <i class="fas fa-eye"></i>
                 </button>
               </td>
             </tr>

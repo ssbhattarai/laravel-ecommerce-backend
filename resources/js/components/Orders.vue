@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h3 style="text-align:center;">Order Information</h3>
+    <h3 style="text-align:center">Order Information</h3>
     <ejs-grid
       ref="grid"
       id="Grid"
@@ -41,7 +41,7 @@ export default {
     return {
       orders: {},
       toolbarOptions: ["ExcelExport"],
-      pageSettings: { pageSize:  10}
+      pageSettings: { pageSize: 10 }
     };
   },
   created() {
@@ -74,11 +74,18 @@ export default {
         // 'Grid_excelexport' -> Grid component id + _ + toolbar item name
         let excelExportProperties = {
           theme: {
-            header: { fontName: "Segoe UI", fontColor: "#666666" },
-            record: { fontName: "Segoe UI", fontColor: "#666666" },
+            header: {
+              fontName: "Segoe UI",
+              fontColor: "#666666"
+            },
+            record: {
+              fontName: "Segoe UI",
+              fontColor: "#666666"
+            },
             caption: { fontName: "Segoe UI", fontColor: "#666666" }
           }
         };
+
         this.$refs.grid.excelExport();
       }
     }
@@ -86,6 +93,11 @@ export default {
   provide: {
     grid: [Page, Sort, Filter, Group, Toolbar, PdfExport, ExcelExport]
   }
-}
-
+};
 </script>
+
+<style>
+.a-move {
+  margin-left: 978px;
+}
+</style>

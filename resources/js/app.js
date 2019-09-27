@@ -7,6 +7,8 @@
 require("./bootstrap");
 window.Vue = require("vue");
 // import moment from 'moment';
+import 'vue-material/dist/vue-material.min.css';
+// import 'vue-material/dist/theme/default.css';
 import * as moment from "moment";
 import VueProgressBar from "vue-progressbar";
 import Swal from "sweetalert2";
@@ -28,7 +30,11 @@ import {
 import {
     enableRipple
 } from "@syncfusion/ej2-base";
+import {
+    AutoCompletePlugin
+} from '@syncfusion/ej2-vue-dropdowns';
 
+Vue.use(AutoCompletePlugin);
 enableRipple(true);
 Vue.use(ButtonPlugin, Page, Sort);
 Vue.use(GridPlugin);
@@ -73,6 +79,7 @@ const Toast = Swal.mixin({
     timer: 3000
 });
 window.Toast = Toast;
+// Vue Routes
 
 const routes = [{
         path: "/dashboard",
@@ -126,7 +133,21 @@ const routes = [{
         path: "/products/:id",
         name: "update",
         component: require("./components/product/UpdateProduct.vue").default
-    }
+    }, {
+        path: "/suppliers",
+        name: "suppliers",
+        component: require("./components/supplier/supplier.vue").default
+    },
+    {
+        path: "/create-supplier",
+        name: "c-supplier",
+        component: require("./components/supplier/create-supplier.vue").default
+    },
+    {
+        path: "/suppliers/:id",
+        name: "u-supplier",
+        component: require("./components/supplier/update-supplier.vue").default
+    },
 
 
 ];
@@ -209,3 +230,27 @@ window.Vue = require("vue");
 Vue.use(require("vue-resource"));
 
 Vue.component('pagination', require('laravel-vue-pagination'));
+
+
+
+
+import BootstrapVue from 'bootstrap-vue';
+import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css';
+Vue.use(BootstrapVue);
+
+
+
+// This imports the dropdown and table plugins
+import {
+    DropdownPlugin,
+    TablePlugin
+} from 'bootstrap-vue';
+Vue.use(DropdownPlugin);
+Vue.use(TablePlugin);
+
+
+import {
+    PaginationPlugin
+} from 'bootstrap-vue';
+Vue.use(PaginationPlugin);

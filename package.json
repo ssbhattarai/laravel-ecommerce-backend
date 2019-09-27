@@ -12,7 +12,7 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
         "axios": "^0.18.1",
-        "bootstrap": "^4.1.0",
+        "bootstrap": "^4.3.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
@@ -21,17 +21,20 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17",
+        "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
         "@syncfusion/ej2": "^17.2.51",
         "@syncfusion/ej2-vue-base": "^17.2.47",
         "@syncfusion/ej2-vue-buttons": "^17.2.47",
+        "@syncfusion/ej2-vue-charts": "^17.2.49",
+        "@syncfusion/ej2-vue-dropdowns": "^17.2.49",
         "@syncfusion/ej2-vue-grids": "^17.2.51",
         "admin-lte": "^3.0.0-alpha.2",
+        "bootstrap-vue": "^2.0.2",
+        "buefy": "^0.8.4",
         "canvas": "^2.5.0",
-        "chart.js": "^2.8.0",
         "fs": "0.0.1-security",
         "jw-vue-pagination": "^1.0.1",
         "laravel-echo": "^1.5.4",
@@ -42,11 +45,12 @@
         "sweetalert2": "^8.13.3",
         "vee-validate": "^2.2.15",
         "vform": "^1.0.1",
-        "vue-chartjs": "^3.4.2",
+        "vue-material": "^1.0.0-beta-11",
         "vue-progressbar": "^0.7.5",
         "vue-resource": "^1.5.1",
         "vue-router": "^3.0.7",
         "vue-sorted-table": "^1.1.1",
-        "vuelidate": "^0.7.4"
+        "vuelidate": "^0.7.4",
+        "vuetify": "^2.0.18"
     }
 }
