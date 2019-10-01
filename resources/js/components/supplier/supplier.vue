@@ -89,7 +89,7 @@
 
       <template v-slot:cell(actions)="row">
         <b-button variant="success">Edit</b-button>
-        <a href="#" @click="deleteSupplier(loadId())">
+        <a href="#" >
           <b-button variant="danger">Delete</b-button>
         </a>
       </template>
@@ -195,7 +195,8 @@ export default {
           sortable: true,
           class: "text-center"
         },
-        { key: "actions", label: "Actions" }
+        { key: "actions", 
+        label: "Actions" }
       ],
       totalRows: 1,
       currentPage: 1,
@@ -206,11 +207,7 @@ export default {
       sortDirection: "asc",
       filter: null,
       filterOn: [],
-      infoModal: {
-        id: "info-modal",
-        title: "",
-        content: ""
-      }
+      // id: this.suppliers.id
     };
   },
   computed: {
@@ -226,7 +223,10 @@ export default {
 
   mounted() {
     this.loadSuppliers();
+    // console.log(this.fields.key);
     // Set the initial number of items
+    // console.log(this.products.id);
+    // console.log('hyyyy');
     Fire.$on("afterCreated", () => {
       this.loadSuppliers();
     });

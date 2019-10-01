@@ -107,7 +107,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <router-link to="/dashboard" class="nav-link">
+            <router-link to="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt green"></i>
               <p>
                 Dashboard

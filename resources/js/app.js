@@ -7,7 +7,7 @@
 require("./bootstrap");
 window.Vue = require("vue");
 // import moment from 'moment';
-import 'vue-material/dist/vue-material.min.css';
+// import 'vue-material/dist/vue-material.min.css';
 // import 'vue-material/dist/theme/default.css';
 import * as moment from "moment";
 import VueProgressBar from "vue-progressbar";
@@ -82,7 +82,7 @@ window.Toast = Toast;
 // Vue Routes
 
 const routes = [{
-        path: "/dashboard",
+        path: "/",
         component: require("./components/Dashboard.vue").default
     },
     {
@@ -121,7 +121,7 @@ const routes = [{
     },
     {
         path: "/chat",
-        name: "chart",
+        name: "chat",
         component: require("./components/Chat.vue").default
     },
     {
@@ -235,11 +235,12 @@ Vue.component('pagination', require('laravel-vue-pagination'));
 
 
 import BootstrapVue from 'bootstrap-vue';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
 Vue.use(BootstrapVue);
 
-
+// import Chart from 'chart.js';
+// Vue.use(Chart);
 
 // This imports the dropdown and table plugins
 import {
@@ -254,3 +255,13 @@ import {
     PaginationPlugin
 } from 'bootstrap-vue';
 Vue.use(PaginationPlugin);
+
+
+import axios from 'axios';
+import VueAxios from 'vue-axios';
+
+Vue.use(VueAxios, axios);
+
+// console.log(2+5);
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'

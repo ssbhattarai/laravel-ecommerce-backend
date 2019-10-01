@@ -12,6 +12,12 @@ class SupplierController extends Controller
     // {
     //     $this->middleware('auth:api');
     // }
+
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin');
+    }
     /**
      * Display a listing of the resource.
      *

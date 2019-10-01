@@ -16,10 +16,6 @@ $fa-font-path:"../webfonts";
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 @import "~@syncfusion/ej2-base/styles/material.css";
 @import "~@syncfusion/ej2-buttons/styles/material.css";
-
-
-
-
 @import '~@syncfusion/ej2-calendars/styles/material.css';
 @import '~@syncfusion/ej2-dropdowns/styles/material.css';
 @import '~@syncfusion/ej2-inputs/styles/material.css';
@@ -28,4 +24,10 @@ $fa-font-path:"../webfonts";
 @import '~@syncfusion/ej2-splitbuttons/styles/material.css';
 @import "~@syncfusion/ej2-vue-grids/styles/material.css";
 
-@import '~vuetify/dist/vuetify.min.css';
+
+
+// @import '~vuetify/dist/vuetify.min.css';
+
+
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';

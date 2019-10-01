@@ -40,15 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
 
         'api' => [
             'driver' => 'passport',
             'provider' => 'users',
             'hash' => false,
-        ], 'admin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-
         ],
     ],
 
@@ -77,8 +77,7 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Admin::class,
-
-        ]
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -106,12 +105,11 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
-        ], 'admins' => [
+        ],
+        'admins' => [
             'provider' => 'admins',
-            'email' => 'auth.emails.password',
             'table' => 'password_resets',
             'expire' => 60,
-
         ],
     ],
 

@@ -45,9 +45,10 @@ export default {
     };
   },
   created() {
-    axios.get("api/orders").then(response => {
-      this.orders = response.data;
-      console.log(this.orders);
+    console.log("FUckkkkkk");
+    axios.get("api/orders").then(({ data }) => {
+      this.orders = data;
+      this.test = "aaaaa";
     });
   },
   methods: {

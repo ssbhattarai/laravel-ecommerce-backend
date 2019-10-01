@@ -18,6 +18,12 @@ use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
 {
+
+
+    public function __construct()
+    {
+        $this->middleware('guest:admin');
+    }
     /**
      * Create a new controller instance.
      *
