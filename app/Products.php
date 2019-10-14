@@ -8,7 +8,7 @@ use APP\Category;
 use APP\OrderItem;
 use APP\Order;
 use APP\CartItem;
-
+use Spatie\Searchable\SearchResult;
 
 
 class Products extends Model
@@ -55,5 +55,12 @@ class Products extends Model
     public function getDescriptionAttributes($value)
     {
         return ucwords($value);
+    }
+
+     public function getSearchResult(): SearchResult
+    {
+       $url = route('product.search', $this->id);
+         
+       return new SearchResult($this, $this->product_name, $url);
     }
 }

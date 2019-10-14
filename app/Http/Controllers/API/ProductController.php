@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Facades\Excel;
 // use Maatwebsite\Excel\Facades;
 use App\Exports\ProductsExport;
 use App\Http\Resources\ProductsResource;
-
+use App\Events\SearchEvent;
 use function GuzzleHttp\Promise\all;
 
 class ProductController extends Controller
@@ -223,4 +223,5 @@ class ProductController extends Controller
 
         return ProductsResource::collection($users);
     }
+
 }

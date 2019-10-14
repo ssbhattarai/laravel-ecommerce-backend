@@ -63,6 +63,10 @@ Route::get('supplier-info', function () {
     return view('suplier.profile');
 });
 
+Route::get('orders', function () {
+    return view('order.order');
+});
+
 
 // admin auth
 // Route::get('admin/dashboard', 'AdminController@index');
@@ -75,6 +79,9 @@ Route::get('supplier-info', function () {
 // admin route 
 // Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*')->name('layouts.master'); // use {any} because the admin site must start with the admin/ 
 
+//search route
+Route::get('product/search', 'API\ProductController@searchP')->name('product.search');
+Route::post('neworders', 'Frontend\OrderController@SaveOrder')->name('order');
 
 Route::group(['prefix'  =>  ''], function () {
     Route::get('dashboard', 'AdminController@index');

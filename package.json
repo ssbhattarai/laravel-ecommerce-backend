@@ -12,17 +12,19 @@
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
         "axios": "^0.18.1",
-        "bootstrap": "^4.3.1",
-        "cross-env": "^5.1",
+        "bootstrap": "^4.0.0",
+        "cross-env": "^5.2.1",
+        "gravatar": "^1.0",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
-        "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "vue": "^2.6.10",
-        "vue-template-compiler": "^2.6.10"
+        "vue-template-compiler": "^2.6.10",
+        "vuetify": "^2.1.3",
+        "vuex": "^3.0"
     },
     "dependencies": {
         "@syncfusion/ej2": "^17.2.51",
@@ -32,6 +34,7 @@
         "@syncfusion/ej2-vue-dropdowns": "^17.2.49",
         "@syncfusion/ej2-vue-grids": "^17.2.51",
         "admin-lte": "^3.0.0-alpha.2",
+        "ant-design-vue": "^1.3.17",
         "bootstrap-vue": "^2.0.2",
         "buefy": "^0.8.4",
         "canvas": "^2.5.0",
@@ -45,6 +48,7 @@
         "moment": "^2.24.0",
         "pusher-js": "^4.4.0",
         "sweetalert2": "^8.13.3",
+        "v-data-table": "^2.1.0",
         "vee-validate": "^2.2.15",
         "vform": "^1.0.1",
         "vue-axios": "^2.1.4",
@@ -54,6 +58,7 @@
         "vue-router": "^3.0.7",
         "vue-sorted-table": "^1.1.1",
         "vuelidate": "^0.7.4",
-        "vuetify": "^2.0.18"
+        "vuex": "^3.1.1",
+        "webpack": "^4.41.0"
     }
 }

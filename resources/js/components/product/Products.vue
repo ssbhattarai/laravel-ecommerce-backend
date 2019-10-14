@@ -28,6 +28,7 @@ img {
 
 <template>
   <div class="container">
+     
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">
@@ -39,8 +40,9 @@ img {
             </button>
           </a>
         </h3>
-
+      
         <div class="card-tools">
+         
           <div class="input-group input-group-sm" style="width: 150px;">
             <!-- Add New -->
             <router-link :to="{ name: 'create' }">
@@ -199,6 +201,8 @@ export default {
       editMode: false,
       // id: "",
       products: {},
+      query: null,
+      results:[],
       viewProd: {},
       // id = this.form.id,
       form: new Form({

@@ -1,10 +1,24 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+@import 'variables';
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons');
 // <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons">
 
 // Variables
-@import 'variables';
 $fa-font-path:"../webfonts";
 
 // Bootstrap

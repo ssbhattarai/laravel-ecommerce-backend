@@ -18,3 +18,8 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 Broadcast::channel('search', function () {
     return true;
 });
+
+
+// Broadcast::channel('search', function () {
+//         return true;
+//     });

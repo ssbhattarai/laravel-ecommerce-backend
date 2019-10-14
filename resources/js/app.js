@@ -4,6 +4,10 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 /*jshint esversion: 6 */
+// import store from './store/index';
+
+
+
 require("./bootstrap");
 window.Vue = require("vue");
 // import moment from 'moment';
@@ -13,25 +17,25 @@ import * as moment from "moment";
 import VueProgressBar from "vue-progressbar";
 import Swal from "sweetalert2";
 import {
-    Form,
-    HasError,
-    AlertError
+  Form,
+  HasError,
+  AlertError
 } from "vform"; // import different packages from vue
 
 //Essential js
 import {
-    GridPlugin,
-    Page,
-    Sort
+  GridPlugin,
+  Page,
+  Sort
 } from '@syncfusion/ej2-vue-grids';
 import {
-    ButtonPlugin
+  ButtonPlugin
 } from "@syncfusion/ej2-vue-buttons";
 import {
-    enableRipple
+  enableRipple
 } from "@syncfusion/ej2-base";
 import {
-    AutoCompletePlugin
+  AutoCompletePlugin
 } from '@syncfusion/ej2-vue-dropdowns';
 
 Vue.use(AutoCompletePlugin);
@@ -64,96 +68,96 @@ Vue.use(SortedTablePlugin);
 // Vue.component('jw-pagination', JwPagination);
 
 Vue.use(VueProgressBar, {
-    color: "rgb(143, 255, 199)",
-    failedColor: "red",
-    height: "4px"
+  color: "rgb(143, 255, 199)",
+  failedColor: "red",
+  height: "4px"
 });
 
 
 import Vue from 'vue'
 // for toast alert
 const Toast = Swal.mixin({
-    toast: true,
-    position: "top",
-    showConfirmButton: false,
-    timer: 3000
+  toast: true,
+  position: "top",
+  showConfirmButton: false,
+  timer: 3000
 });
 window.Toast = Toast;
 // Vue Routes
 
 const routes = [{
-        path: "/",
-        component: require("./components/Dashboard.vue").default
-    },
-    {
-        path: "/orders",
-        name: "orders",
-        component: require("./components/Orders.vue").default
-    },
-    {
-        path: "/products",
-        name: "products",
-        component: require("./components/product/Products.vue").default
-    },
-    {
-        path: "/delivery",
-        name: "delivery",
-        component: require("./components/Delivery.vue").default
-    },
-    {
-        path: "/category",
-        name: "category",
-        component: require("./components/Categories.vue").default
-    },
-    {
-        path: "/developer",
-        component: require("./components/Developer.vue").default
-    },
-    {
-        path: "/profile",
-        name: "profile",
-        component: require("./components/Profile.vue").default
-    },
-    {
-        path: "/",
-        name: "dash",
-        component: require("./components/Dashboard.vue").default
-    },
-    {
-        path: "/chat",
-        name: "chat",
-        component: require("./components/Chat.vue").default
-    },
-    {
-        path: "/create-products",
-        name: "create",
-        component: require("./components/product/CreateProduct.vue").default
-    },
-    {
-        path: "/products/:id",
-        name: "update",
-        component: require("./components/product/UpdateProduct.vue").default
-    }, {
-        path: "/suppliers",
-        name: "suppliers",
-        component: require("./components/supplier/supplier.vue").default
-    },
-    {
-        path: "/create-supplier",
-        name: "c-supplier",
-        component: require("./components/supplier/create-supplier.vue").default
-    },
-    {
-        path: "/suppliers/:id",
-        name: "u-supplier",
-        component: require("./components/supplier/update-supplier.vue").default
-    },
+    path: "/",
+    component: require("./components/Dashboard.vue").default
+  },
+  {
+    path: "/orders",
+    name: "orders",
+    component: require("./components/Orders.vue").default
+  },
+  {
+    path: "/products",
+    name: "products",
+    component: require("./components/product/Products.vue").default
+  },
+  {
+    path: "/delivery",
+    name: "delivery",
+    component: require("./components/Delivery.vue").default
+  },
+  {
+    path: "/category",
+    name: "category",
+    component: require("./components/Categories.vue").default
+  },
+  {
+    path: "/developer",
+    component: require("./components/Developer.vue").default
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: require("./components/Profile.vue").default
+  },
+  {
+    path: "/",
+    name: "dash",
+    component: require("./components/Dashboard.vue").default
+  },
+  {
+    path: "/chat",
+    name: "chat",
+    component: require("./components/Chat.vue").default
+  },
+  {
+    path: "/create-products",
+    name: "create",
+    component: require("./components/product/CreateProduct.vue").default
+  },
+  {
+    path: "/products/:id",
+    name: "update",
+    component: require("./components/product/UpdateProduct.vue").default
+  }, {
+    path: "/suppliers",
+    name: "suppliers",
+    component: require("./components/supplier/supplier.vue").default
+  },
+  {
+    path: "/create-supplier",
+    name: "c-supplier",
+    component: require("./components/supplier/create-supplier.vue").default
+  },
+  {
+    path: "/suppliers/:id",
+    name: "u-supplier",
+    component: require("./components/supplier/update-supplier.vue").default
+  },
 
 
 ];
 
 const router = new VueRouter({
-    routes
+  routes
 });
 
 /**
@@ -168,8 +172,8 @@ const router = new VueRouter({
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component(
-    "example-component",
-    require("./components/ExampleComponent.vue").default
+  "example-component",
+  require("./components/ExampleComponent.vue").default
 );
 
 /**
@@ -178,52 +182,52 @@ Vue.component(
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 const app = new Vue({
-    el: "#app",
-    router,
-    data: {
-        search: ""
-    },
-    methods: {
-        // working but delay for 1 sec
-        searchit: _.debounce(() => {
-            Fire.$emit("searching");
-        }, 500)
-        // searchit() {
-        //     Fire.$emit("searching");
-        // },
-    }
+  el: "#app",
+  router,
+  data: {
+    search: ""
+  },
+  methods: {
+    // working but delay for 1 sec
+    searchit: _.debounce(() => {
+      Fire.$emit("searching");
+    }, 500)
+    // searchit() {
+    //     Fire.$emit("searching");
+    // },
+  }
 });
 
 Vue.filter("upText", function (text) {
-    if (text) {
-        return text.charAt(0).toUpperCase() + text.slice(1);
-    } else {
-        return "";
-    }
+  if (text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  } else {
+    return "";
+  }
 });
 
 String.prototype.capitalize = function () {
-    return this.charAt(0).toUpperCase() + this.slice(1);
+  return this.charAt(0).toUpperCase() + this.slice(1);
 };
 
 Vue.filter("myDate", function (created) {
-    return moment(created).format("MMMM Do YYYY");
+  return moment(created).format("MMMM Do YYYY");
 });
 
 // this is for the passport
 Vue.component(
-    "passport-clients",
-    require("./components/passport/Clients.vue").default
+  "passport-clients",
+  require("./components/passport/Clients.vue").default
 );
 
 Vue.component(
-    "passport-authorized-clients",
-    require("./components/passport/AuthorizedClients.vue").default
+  "passport-authorized-clients",
+  require("./components/passport/AuthorizedClients.vue").default
 );
 
 Vue.component(
-    "passport-personal-access-tokens",
-    require("./components/passport/PersonalAccessTokens.vue").default
+  "passport-personal-access-tokens",
+  require("./components/passport/PersonalAccessTokens.vue").default
 );
 
 window.Vue = require("vue");
@@ -244,24 +248,37 @@ Vue.use(BootstrapVue);
 
 // This imports the dropdown and table plugins
 import {
-    DropdownPlugin,
-    TablePlugin
+  DropdownPlugin,
+  TablePlugin
 } from 'bootstrap-vue';
 Vue.use(DropdownPlugin);
 Vue.use(TablePlugin);
 
 
 import {
-    PaginationPlugin
+  PaginationPlugin
 } from 'bootstrap-vue';
 Vue.use(PaginationPlugin);
 
+import Vuex from 'vuex'
 
-import axios from 'axios';
-import VueAxios from 'vue-axios';
-
-Vue.use(VueAxios, axios);
+Vue.use(Vuex)
 
 // console.log(2+5);
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+
+
+// import Vue from 'vue';
+// import Vuetify from 'vuetify';
+// import 'vuetify/dist/vuetify.min.css';
+
+// Vue.use(Vuetify);
+
+import Vuetify from 'vuetify/lib';
+
+Vue.use(Vuetify);
+
+import VDataTable from 'vuetify';
+Vue.use(VDataTable);
