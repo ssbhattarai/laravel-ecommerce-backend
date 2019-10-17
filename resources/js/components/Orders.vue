@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h3 style="text-align:center">Order Information</h3>
+    <div>
+      <i class="fas fa-bell"></i>
+    </div>
     <ejs-grid
       ref="grid"
       id="Grid"

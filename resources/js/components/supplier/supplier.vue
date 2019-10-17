@@ -88,7 +88,10 @@
       <b-button variant="success">Button</b-button>
 
       <template v-slot:cell(actions)="row">
-        <b-button variant="success">Edit</b-button>
+        <!-- <b-button variant="success">Edit</b-button> -->
+       <!-- <router-link v-bind:to="{name: 'u-supplier', params: {id: products.id }}" > -->
+          <b-button variant="success">Edit</b-button>
+        <!-- </router-link>                          -->
         <a href="#" >
           <b-button variant="danger">Delete</b-button>
         </a>

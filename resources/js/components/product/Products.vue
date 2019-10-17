@@ -28,7 +28,6 @@ img {
 
 <template>
   <div class="container">
-     
     <div class="card">
       <div class="card-header">
         <h3 class="card-title">
@@ -40,9 +39,8 @@ img {
             </button>
           </a>
         </h3>
-      
+
         <div class="card-tools">
-         
           <div class="input-group input-group-sm" style="width: 150px;">
             <!-- Add New -->
             <router-link :to="{ name: 'create' }">
@@ -69,7 +67,7 @@ img {
             </tr>
           </thead>
           <tbody>
-            <tr v-for="product in products" :key="product.id">
+            <tr v-for="product in displayedProducts" :key="product.id + + '-label'">
               <td>{{product.id}}</td>
 
               <td>{{product.product_name }}</td>
@@ -111,6 +109,30 @@ img {
             </tr>
           </tbody>
         </table>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+            <li class="page-item" style="margin-left: 27em;">
+              <button type="button" class="page-link" v-if="page != 1" @click="page--">Previous</button>
+            </li>
+            <li class="page-item">
+              <button
+                type="button"
+                class="page-link"
+                v-for="pageNumber in pages.slice(page-1, page+5)"
+                :key="pageNumber"
+                @click="page = pageNumber"
+              >{{pageNumber}}</button>
+            </li>
+            <li class="page-item">
+              <button
+                type="button"
+                @click="page++"
+                v-if="page < pages.length"
+                class="page-link"
+              >Next</button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
     <router-view></router-view>
@@ -195,16 +217,17 @@ img {
 export default {
   data() {
     return {
-      //sorting
-      // image: "",
+      page: 1,
+      perPage: 1,
+      pages: [],
       pId: "",
       editMode: false,
-      // id: "",
-      products: {},
+      // products: {},
       query: null,
-      results:[],
+      results: [],
       viewProd: {},
-      // id = this.form.id,
+      productsp: [],
+      products: {},
       form: new Form({
         id: "",
         product_name: "",
@@ -217,7 +240,33 @@ export default {
       })
     };
   },
+
   methods: {
+    paginate(productsp) {
+      let page = this.page;
+      let perPage = this.perPage;
+      let from = page * perPage - perPage;
+      let to = page * perPage;
+      return productsp.slice(from, to);
+    },
+    setPages() {
+      let numberOfPages = Math.ceil(this.productsp.length / this.perPage);
+      for (let index = 1; index <= numberOfPages; index++) {
+        this.pages.push(index);
+      }
+    },
+    onChangePage(pageOfItems) {
+      // update page of items
+      this.pageOfItems = pageOfItems;
+    },
+    getProducts() {
+      axios.get("api/products").then(({ data }) => {
+        this.productsp = data;
+        console.log("aaaa");
+        console.log(this.productsp);
+        this.test = "aaaaa";
+      });
+    },
     getImgUrl() {
       // return require("../assets/" + pic);
       let pic = this.viewProd.image;
@@ -414,6 +463,7 @@ export default {
   },
 
   created() {
+    this.getProducts();
     Fire.$on("searching", () => {
       let query = this.$parent.search;
       axios
@@ -433,6 +483,26 @@ export default {
       this.loadProducts();
     });
     // setInterval(() => this.loadProducts(), 3000);
+  },
+  computed: {
+    displayedProducts() {
+      return this.paginate(this.productsp);
+    }
+  },
+  watch: {
+    productsp() {
+      this.setPages();
+    }
+  },
+  filters: {
+    trimWords(value) {
+      return (
+        value
+          .split(" ")
+          .splice(0, 20)
+          .join(" ") + "..."
+      );
+    }
   }
 };
 </script>

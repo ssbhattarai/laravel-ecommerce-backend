@@ -49,7 +49,7 @@ Vue.use(GridPlugin);
 window.Form = Form;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
-Vue.component("pagination", require("laravel-vue-pagination"));
+// Vue.component("pagination", require("laravel-vue-pagination"));
 
 window.Swal = Swal;
 window.Fire = new Vue();
@@ -233,10 +233,6 @@ Vue.component(
 window.Vue = require("vue");
 Vue.use(require("vue-resource"));
 
-Vue.component('pagination', require('laravel-vue-pagination'));
-
-
-
 
 import BootstrapVue from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css';
@@ -282,3 +278,10 @@ Vue.use(Vuetify);
 
 import VDataTable from 'vuetify';
 Vue.use(VDataTable);
+import 'vuetify/dist/vuetify.min.css';
+// import "mdi/font/css/materialdesignicons.css";
+
+
+
+import JwPagination from 'jw-vue-pagination';
+Vue.component('jw-pagination', JwPagination);

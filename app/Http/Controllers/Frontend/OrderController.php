@@ -86,16 +86,15 @@ class OrderController extends Controller
 
     public function SaveOrder()
     {
-        $device = new Order();
+        $order = new Order();
+        $order->billing_email = request('email');
+        $order->billing_name = request('name');
+        $order->billing_city = request('city');
+        $order->billing_province = request('province');
+        $order->billing_phone = request('phone');
+        $order->user_id  = '1';
 
-        $device->billing_email = request('email');
-        $device->billing_name = request('name');
-        $device->billing_city = request('city');
-        $device->billing_province = request('province');
-        $device->billing_phone = request('phone');
-        $device->user_id  = '1';
-
-        $device->save();
+        $order->save();
 
         return redirect('/');
     }
