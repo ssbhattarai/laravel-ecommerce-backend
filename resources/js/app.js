@@ -234,35 +234,35 @@ window.Vue = require("vue");
 Vue.use(require("vue-resource"));
 
 
-import BootstrapVue from 'bootstrap-vue';
+// import BootstrapVue from 'bootstrap-vue';
 // import 'bootstrap/dist/css/bootstrap.css';
 // import 'bootstrap-vue/dist/bootstrap-vue.css';
-Vue.use(BootstrapVue);
+// Vue.use(BootstrapVue);
 
 // import Chart from 'chart.js';
 // Vue.use(Chart);
 
-// This imports the dropdown and table plugins
-import {
-  DropdownPlugin,
-  TablePlugin
-} from 'bootstrap-vue';
-Vue.use(DropdownPlugin);
-Vue.use(TablePlugin);
+// // This imports the dropdown and table plugins
+// import {
+//   DropdownPlugin,
+//   TablePlugin
+// } from 'bootstrap-vue';
+// Vue.use(DropdownPlugin);
+// Vue.use(TablePlugin);
 
 
-import {
-  PaginationPlugin
-} from 'bootstrap-vue';
-Vue.use(PaginationPlugin);
+// import {
+//   PaginationPlugin
+// } from 'bootstrap-vue';
+// Vue.use(PaginationPlugin);
 
-import Vuex from 'vuex'
+// import Vuex from 'vuex'
 
-Vue.use(Vuex)
+// Vue.use(Vuex)
 
 // console.log(2+5);
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import 'bootstrap/dist/css/bootstrap.css'
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 

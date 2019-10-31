@@ -92,7 +92,20 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $suppliers = Suppliers::findOrFail($id);
+        $suppliers->update(
+            $request->all()
+        )->refresh();
+
+        // $Arr = unserialize($request->main_product);   //string to array conversion
+        // $suppliers->update(
+        //     $request->except('main_product') + [
+        //         'user_id' => \Auth::id(),
+        //         'main_product' => $A
+        //     ]
+        // )->refresh();
+
+        return $suppliers;
     }
 
     /**
@@ -101,11 +114,22 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function destroy($id)
     {
         $supplier = Suppliers::findOrFail($id);
-        $supplier->delete(); 
+        $supplier->delete();
+        return ["message" => "deleted sucessfully"];
         // return $supplier;
         // return ['message' => 'Product Delected sucessfully!'];
+    }
+
+
+    public function getSupplier($id)
+    {
+
+        // $pieces = explode(" ", $request->main_product);
+        $s = Suppliers::find($id);
+        return response()->json($s);
     }
 }

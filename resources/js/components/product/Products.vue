@@ -24,6 +24,19 @@ input[type="file"] {
 img {
   height: 119px;
 }
+
+button.page-link {
+  display: inline-block;
+}
+button.page-link {
+  font-size: 20px;
+  color: #29b3ed;
+  font-weight: 500;
+}
+.offset {
+  width: 500px !important;
+  margin: 20px auto;
+}
 </style>
 
 <template>
@@ -49,6 +62,14 @@ img {
                 <i class="fas fa-plus"></i>
               </button>
             </router-link>
+          </div>
+        </div>
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search Products" />
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button">
+              <i class="fa fa-search"></i>
+            </button>
           </div>
         </div>
       </div>
@@ -110,8 +131,8 @@ img {
           </tbody>
         </table>
         <nav aria-label="Page navigation example">
-          <ul class="pagination">
-            <li class="page-item" style="margin-left: 27em;">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
               <button type="button" class="page-link" v-if="page != 1" @click="page--">Previous</button>
             </li>
             <li class="page-item">

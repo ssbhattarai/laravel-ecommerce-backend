@@ -49,3 +49,6 @@ Route::get('orderCount', 'API\OrderController@orderCount');
 Route::apiResources([
     'suppliers' => 'API\SupplierController'
 ]);
+
+Route::get('getSupplier/{id}', 'API\SupplierController@getSupplier');
+Route::get('/searchP', 'API\SearchController@search');

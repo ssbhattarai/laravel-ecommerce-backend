@@ -82,7 +82,7 @@ Route::get('orders', function () {
 //search route
 Route::get('product/search', 'API\ProductController@searchP')->name('product.search');
 Route::post('neworders', 'Frontend\OrderController@SaveOrder')->name('order');
-
+Route::get('chartjs', 'API\ProductController@chartjs');
 Route::group(['prefix'  =>  ''], function () {
     Route::get('dashboard', 'AdminController@index');
     Route::get('admin/login', 'Admin\LoginController@ShowLoginForm')->name('admin.login');

@@ -223,5 +223,4 @@ class ProductController extends Controller
 
         return ProductsResource::collection($users);
     }
-
 }
