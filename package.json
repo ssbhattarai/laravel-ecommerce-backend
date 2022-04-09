@@ -45,7 +45,7 @@
         "jw-vue-pagination": "^1.0.1",
         "laravel-echo": "^1.5.4",
         "mdbvue": "^5.8.0",
-        "moment": "^2.24.0",
+        "moment": "^2.29.2",
         "pusher-js": "^4.4.0",
         "sweetalert2": "^8.13.3",
         "v-data-table": "^2.1.0",
